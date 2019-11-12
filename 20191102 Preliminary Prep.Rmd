@@ -1,0 +1,453 @@
+---
+title: "20191102 Preliminary Analysis"
+author: "Hanqian Zhang"
+date: "11/2/2019"
+output: html_document
+---
+
+## Setup
+
+### Load Packages
+
+```{r load-packages}
+library(ggplot2)
+library(dplyr)
+library(statsr)
+library(gmodels)
+```
+
+### Load Data
+
+```{r load-data}
+library(haven)
+cfps2018person_201909 <- read_dta("D:/CFPS Research-20191101T212903Z-001/CFPS Research/Data/[CFPS+Public+Data]+CFPS+2018+in+STATA+(Chinese)/[CFPS Public Data] CFPS 2018 in STATA (Chinese)/cfps2018person_201909.dta")
+library(haven)
+cfps2018famecon_201909 <- read_dta("D:/CFPS Research-20191101T212903Z-001/CFPS Research/Data/[CFPS+Public+Data]+CFPS+2018+in+STATA+(Chinese)/[CFPS Public Data] CFPS 2018 in STATA (Chinese)/cfps2018famecon_201909.dta")
+```
+
+
+### Dispatched Worker
+
+Creating a dataframe of dispatched workers & contract workers respectively.
+
+```{r df for dispatched workers}
+dispatched2018 <- cfps2018person_201909 %>%
+  filter(!(is.na(qg502)), qg502 == 1)
+
+cfps2018person_201909 <- cfps2018person_201909 %>%
+  mutate(dispatch = ifelse(qg502 == 1, "Dispatch", ifelse(qg5 == 1 & qg502 == 5, "Contract", "Other")))
+
+
+contract2018 <- cfps2018person_201909 %>%
+  filter(!(is.na(qg502)), qg5 == 1, qg502 == 5)
+
+cfps2018person_201909 <- cfps2018person_201909 %>%
+  mutate(contract = ifelse(qg5 == 1 & qg502 == 5, TRUE, FALSE))
+```
+
+
+### Preliminary analysis of dispatched workers:
+
+
+```{r prelim-duispatched} 
+summary(dispatched2018$qg5)
+summary(dispatched2018$qg501)
+```
+
+The results indicate that all 906 dispatched workers recorded have a labor contract with specified length.
+
+
+```{r equal-work-equal-pay}
+ggplot(data = cfps2018person_201909, aes(x = qg10)) +
+  geom_bar(stat = "bin")
+
+```
+
+
+
+
+### 公积金
+劳务派遣公积金平均值（380.7）中位数（300）均低于合同工平均值（501）中位数（350）。
+
+派遣工中没有公积金记录的比例（0.608）略高于合同工（0.535）。
+
+派遣工中明确回答没有住房公积金的比例（0.536）略高于合同工g（0.466）
+
+```{r 公积金}
+gjjContract <- contract2018 %>%
+  filter(!(is.na(qg1001)), qg1001 != -8, qg1001 != -2, qg1001 != -1)
+
+gjjDispatch <- dispatched2018 %>%
+  filter(!(is.na(qg1001)), qg1001 != -8, qg1001 != -2, qg1001 != -1)
+
+summary(gjjContract$qg1001)
+summary(gjjDispatch$qg1001)
+length(which(contract2018$qg1001 == -8))/count(contract2018)
+length(which(dispatched2018$qg1001 == -8))/count(dispatched2018)
+
+length(which(contract2018$qg10 == 5))/count(contract2018)
+length(which(dispatched2018$qg10 == 5))/count(dispatched2018)
+```
+
+#### 保险
+
+
+合同工和派遣工无保险记录的比例相近（合同工0.298，派遣工0.302）。
+
+
+```{r 是否缴纳保险}
+length(which(contract2018$qg901 == -8))/count(contract2018)
+length(which(dispatched2018$qg901 == -8))/count(dispatched2018)
+```
+
+
+在cfps有保险记录的人当中，合同工平均保险缴纳金额（564.17）和中位数（390)均高于派遣工平均值（439.09）和中位数（320）。
+
+
+```{r 缴纳保险金额}
+contract2018 %>%
+  filter(qg901 != -8, qg901 != -2, qg901 != -1) %>%
+  summarise(count = n(), CIMean = mean(qg901), CIMed = median(qg901), CISd = sd(qg901), CIMin = min(qg901), CIMax = max(qg901))
+
+dispatched2018 %>%
+  filter(qg901 != -8, qg901 != -2, qg901 != -1) %>%
+  summarise(count = n(), DIMean = mean(qg901), DIMed = median(qg901), DISd = sd(qg901), DIMin = min(qg901), DIMax = max(qg901))
+```
+
+
+### 福利金额
+
+
+派遣工福利平均金额（1488.89）和中位数（960）均小于合同工（1666.67/1000）
+
+
+```{r 福利金额}
+contract2018 %>%
+  filter(qg702 != -8, qg702 != -2, qg702 != -1) %>%
+  summarise(count = n(), CWMean = mean(qg702), CWMed = median(qg702), CWSd = sd(qg702), CWMin = min(qg702), CWMax = max(qg702))
+
+dispatched2018 %>%
+  filter(qg702 != -8, qg702 != -2, qg702 != -1) %>%
+  summarise(count = n(), DWMean = mean(qg702), DWMed = median(qg702), DWSd = sd(qg702), DWMin = min(qg702), DWMax = max(qg702))
+```
+### 晋升渠道
+
+派遣工和合同工在过去一年晋升几率很接近（0.134 vs 0.140）
+
+```{r 晋升渠道-客观事实}
+length(which(contract2018$qg15 == 1 | contract2018$qg15 == 2|contract2018$qg15 == 3))/count(contract2018)
+
+length(which(dispatched2018$qg15 == 1 | dispatched2018$qg15 == 2|dispatched2018$qg15 == 3))/count(dispatched2018)
+```
+
+
+
+
+工作晋升满意度方面：派遣工人0.3340 < 合同工 0.387
+
+
+
+```{r 晋升渠道-主观感受}
+length(which(contract2018$qg405 == 4 | contract2018$qg405 == 5))/count(contract2018)
+
+length(which(dispatched2018$qg405 == 4 | dispatched2018$qg405 == 5))/count(dispatched2018)
+```
+
+
+### 其他特征
+
+1. 工作性质（农业 vs 非农)
+
+劳务派遣集中于非农工作岗位。
+
+```{r test}
+ggplot(dispatched2018, aes(x = qg101))+
+  geom_histogram()
+```
+
+
+
+#### 工会
+
+Surprisingly, 有19.6%的派遣工是工会成员，虽然低于合同工的25.6%
+
+```{r 工会}
+length(which(dispatched2018$qn4003 == 1))/count(dispatched2018)
+
+length(which(dispatched2018$qn4003 == 1))
+
+length(which(contract2018$qn4003 == 1))/count(contract2018)
+
+length(which(contract2018$qn4003 == 1))
+```
+
+
+#### 教育
+
+
+2018 数据集当中貌似没有教育部分的数据？
+
+
+
+#### 心理健康/幸福感
+
+派遣工和合同工对自己生活满意程度接近（3.903 vs 3.893）。
+
+```{r 对自己生活满意程度}
+contract2018 %>%
+  filter(qn12012 != -8, qn12012 != -2, qn12012 != -1) %>%
+  summarise(count = n(), CSMean = mean(qn12012), CSMed = median(qn12012), CSSd = sd(qn12012), CSMin = min(qn12012), CSMax = max(qn12012))
+
+dispatched2018 %>%
+  filter(qn12012 != -8, qn12012 != -2, qn12012 != -1) %>%
+  summarise(count = n(), DSMean = mean(qn12012), DSMed = median(qn12012), DSSd = sd(qn12012), DSMin = min(qn12012), DSMax = max(qn12012))
+```
+
+
+派遣工和合同工对自己未来信心程度接近（4.17 vs 4.12）
+对提高生活水平持积极态度的比率分别为 0.787 & 0.818
+
+```{r 对自己未来信心程度} 
+contract2018 %>%
+  filter(qn12016 != -8, qn12016 != -2, qn12016 != -1) %>%
+  summarise(count = n(), CSMean = mean(qn12016), CSMed = median(qn12016), CSSd = sd(qn12016), CSMin = min(qn12016), CSMax = max(qn12016))
+
+dispatched2018 %>%
+  filter(qn12016 != -8, qn12016 != -2, qn12016 != -1) %>%
+  summarise(count = n(), DSMean = mean(qn12016), DSMed = median(qn12016), DSSd = sd(qn12016), DSMin = min(qn12016), DSMax = max(qn12016))
+
+length(which(contract2018$wv108 == 3 | contract2018$wv108 == 4))/count(contract2018)
+
+length(which(dispatched2018$wv108 == 3 | dispatched2018$wv108 == 4))/count(dispatched2018)
+```
+
+
+认为自己是失败者的比例都很低：
+派遣工0.33%
+合同工0.25%
+
+
+```{r 失败者}
+length(which(contract2018$qm103m == 3 | contract2018$qm103m == 4))/count(contract2018)
+
+length(which(dispatched2018$qm103m == 3 | dispatched2018$qm103m == 4))/count(dispatched2018)
+```
+
+
+认为自己幸福程度派遣工和合同工很接近（7.572 vs 7.62）
+
+```{r 有多幸福}
+contract2018 %>%
+  filter(qm2016 >= 0) %>%
+  summarise(count = n(), CSMean = mean(qm2016), CSMed = median(qm2016), CSSd = sd(qm2016), CSMin = min(qm2016), CSMax = max(qm2016))
+
+dispatched2018 %>%
+  filter(qm2016 >= 0) %>%
+  summarise(count = n(), DSMean = mean(qm2016), DSMed = median(qm2016), DSSd = sd(qm2016), DSMin = min(qm2016), DSMax = max(qm2016))
+```
+
+
+认为热门大多是乐于助人的比例派遣工略低于合同工（69.76% vs 73.12%）
+
+
+```{r 乐于助人/自私}
+length(which(contract2018$qm6 == 1))/count(contract2018)
+
+length(which(dispatched2018$qm6 == 1))/count(dispatched2018)
+```
+
+
+认为努力有回报和认为聪明才干有回报的比例相近：
+努力（派遣工83.11% vs 83.25%合同工）
+聪明才干（派遣工83.44% vs 82.97%合同工）
+
+
+```{r meritocracy}
+length(which(contract2018$wv104 == 3 | contract2018$wv104 == 4))/count(contract2018)
+
+length(which(dispatched2018$wv104 == 3 | dispatched2018$wv104 == 4))/count(dispatched2018)
+
+length(which(contract2018$wv105 == 3 | contract2018$wv105 == 4))/count(contract2018)
+
+length(which(dispatched2018$wv105 == 3 | dispatched2018$wv105 == 4))/count(dispatched2018)
+```
+
+
+针对工作的幸福感派遣工人和合同工均非常接近：
+工作收入满意度（派遣工 3.35 vs 3.38 合同工）
+工作环境满意度（派遣工 3.71 vs 3.69 合同工）
+工作时间满意度（派遣工 3.61 vs 3.61 合同工）
+工作晋升满意度（派遣工 3.27 vs 3.34 合同工）
+工作（总体）满意度（派遣工3.66 vs 3.69合同工）
+
+
+
+```{r 针对工作的幸福感}
+contract2018 %>%
+  filter(qg401 >= 0) %>%
+  summarise(count = n(), CSMean = mean(qg401), CSMed = median(qg401), CSSd = sd(qg401))
+
+dispatched2018 %>%
+  filter(qg401 >= 0) %>%
+  summarise(count = n(), DSMean = mean(qg401), DSMed = median(qg401), DSSd = sd(qg401))
+
+
+contract2018 %>%
+  filter(qg403 >= 0) %>%
+  summarise(count = n(), CSMean = mean(qg403), CSMed = median(qg403), CSSd = sd(qg403))
+
+dispatched2018 %>%
+  filter(qg403 >= 0) %>%
+  summarise(count = n(), DSMean = mean(qg403), DSMed = median(qg403), DSSd = sd(qg403))
+
+
+contract2018 %>%
+  filter(qg404 >= 0) %>%
+  summarise(count = n(), CSMean = mean(qg404), CSMed = median(qg404), CSSd = sd(qg404))
+
+dispatched2018 %>%
+  filter(qg404 >= 0) %>%
+  summarise(count = n(), DSMean = mean(qg404), DSMed = median(qg404), DSSd = sd(qg404))
+
+
+length(which(contract2018$qg405 == 79))/count(contract2018)
+
+length(which(dispatched2018$qg405 == 79))/count(dispatched2018)
+
+contract2018 %>%
+  filter(qg405 >= 0 & qg405 != 79) %>%
+  summarise(count = n(), CSMean = mean(qg405), CSMed = median(qg405), CSSd = sd(qg405))
+
+dispatched2018 %>%
+  filter(qg405 >= 0 & qg405 != 79) %>%
+  summarise(count = n(), DSMean = mean(qg405), DSMed = median(qg405), DSSd = sd(qg405))
+
+
+contract2018 %>%
+  filter(qg406 >= 0) %>%
+  summarise(count = n(), CSMean = mean(qg406), CSMed = median(qg406), CSSd = sd(qg406))
+
+dispatched2018 %>%
+  filter(qg406 >= 0) %>%
+  summarise(count = n(), DSMean = mean(qg406), DSMed = median(qg406), DSSd = sd(qg406))
+```
+
+
+
+
+#### 健康
+
+主观认为不健康比例差不多（派遣工6.4% vs 6.3% 合同工）
+客服健康变化也差不多（健康恶化比例 派遣工24.4% vs 24.9%合同工）
+
+```{r 自认为健康状况如何}
+length(which(contract2018$qp201 == 5))/count(contract2018)
+
+length(which(dispatched2018$qp201 == 5))/count(dispatched2018)
+
+```
+
+```{r 前一年客观健康变化情况}
+length(which(contract2018$qp202 == 5))/count(contract2018)
+
+length(which(dispatched2018$qp202 == 5))/count(dispatched2018)
+
+```
+
+
+
+#### 政府合法性
+
+
+派遣工对政府官员的信任程度略低于合同工（派遣工4.71 vs 4.85合同工）。
+对本县市政府评价相近（派遣工2.56 vs 2.55合同工）
+认为政府腐败程度相近（派遣工 7.15 vs 7.09 合同工)
+认为我国贫富差距问题程度相近（派遣工 7.63 vs 7.63 合同工)
+认为我国就业问题程度派遣工略高于合同工（派遣工 7.01 vs 6.89 合同工)
+认为我国社会保障问题程度相近（派遣工 6.72 vs 6.68 合同工)
+
+
+```{r 对政府官员信任程度一到十}
+contract2018 %>%
+  filter(qn10025 >= 0) %>%
+  summarise(count = n(), CSMean = mean(qn10025), CSMed = median(qn10025), CSSd = sd(qn10025))
+
+dispatched2018 %>%
+  filter(qn10025 >= 0) %>%
+  summarise(count = n(), DSMean = mean(qn10025), DSMed = median(qn10025), DSSd = sd(qn10025))
+```
+
+
+
+```{r 对本县市政府评价（数值越小越满意）}
+contract2018 %>%
+  filter(qn1101 >= 0) %>%
+  summarise(count = n(), CSMean = mean(qn1101), CSMed = median(qn1101), CSSd = sd(qn1101))
+
+dispatched2018 %>%
+  filter(qn1101 >= 0) %>%
+  summarise(count = n(), DSMean = mean(qn1101), DSMed = median(qn1101), DSSd = sd(qn1101))
+```
+
+
+
+```{r 认为政府腐败程度有多严重}
+contract2018 %>%
+  filter(qn6011 >= 0) %>%
+  summarise(count = n(), CSMean = mean(qn6011), CSMed = median(qn6011), CSSd = sd(qn6011))
+
+dispatched2018 %>%
+  filter(qn6011 >= 0) %>%
+  summarise(count = n(), DSMean = mean(qn6011), DSMed = median(qn6011), DSSd = sd(qn6011))
+```
+
+
+```{r 就业问题}
+contract2018 %>%
+  filter(qn6014 >= 0) %>%
+  summarise(count = n(), CSMean = mean(qn6014), CSMed = median(qn6014), CSSd = sd(qn6014))
+
+dispatched2018 %>%
+  filter(qn6014 >= 0) %>%
+  summarise(count = n(), DSMean = mean(qn6014), DSMed = median(qn6014), DSSd = sd(qn6014))
+```
+
+
+```{r 贫富差距}
+contract2018 %>%
+  filter(qn6013 >= 0) %>%
+  summarise(count = n(), CSMean = mean(qn6013), CSMed = median(qn6013), CSSd = sd(qn6013))
+
+dispatched2018 %>%
+  filter(qn6013 >= 0) %>%
+  summarise(count = n(), DSMean = mean(qn6013), DSMed = median(qn6013), DSSd = sd(qn6013))
+```
+
+
+```{r 社会保障}
+contract2018 %>%
+  filter(qn6018 >= 0) %>%
+  summarise(count = n(), CSMean = mean(qn6018), CSMed = median(qn6018), CSSd = sd(qn6018))
+
+dispatched2018 %>%
+  filter(qn6018 >= 0) %>%
+  summarise(count = n(), DSMean = mean(qn6018), DSMed = median(qn6018), DSSd = sd(qn6018))
+```
+
+```{r 工作总收入}
+contract2018 %>%
+  filter(qg12 >= 0) %>%
+  summarise(count = n(), CSMean = mean(qg12), CSMed = median(qg12), CSSd = sd(qg12))
+
+dispatched2018 %>%
+  filter(qg12 >= 0) %>%
+  summarise(count = n(), DSMean = mean(qg12), DSMed = median(qn6018), DSSd = sd(qg12))
+```
+
+
+```{r 是否提供住房公积金}
+length(which(contract2018$qg10 == 1))/count(contract2018)
+
+length(which(dispatched2018$qg10 == 1))/count(dispatched2018)
+```
+
