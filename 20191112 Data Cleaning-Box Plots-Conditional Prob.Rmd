@@ -1,0 +1,426 @@
+---
+title: "20191111 Data Cleaning"
+author: "Hanqian Zhang"
+date: "11/12/2019"
+output:
+  html_document: default
+
+---
+## Setup
+
+
+### Load Packages
+
+```{r load-packages}
+library(ggplot2)
+library(dplyr)
+library(statsr)
+library(gmodels)
+```
+
+### Load Data
+
+```{r load-data}
+library(haven)
+cfps2018person_201909 <- read_dta("D:/CFPS Research-20191101T212903Z-001/CFPS Research/Data/[CFPS+Public+Data]+CFPS+2018+in+STATA+(Chinese)/[CFPS Public Data] CFPS 2018 in STATA (Chinese)/cfps2018person_201909.dta")
+library(haven)
+cfps2018famecon_201909 <- read_dta("D:/CFPS Research-20191101T212903Z-001/CFPS Research/Data/[CFPS+Public+Data]+CFPS+2018+in+STATA+(Chinese)/[CFPS Public Data] CFPS 2018 in STATA (Chinese)/cfps2018famecon_201909.dta")
+```
+
+### 添加新列：劳务派遣
+
+在该步骤后保留的变量如下：
+
+| Num | var | label |
+| :--- | :---: | -----: |
+| 1   | pid | 个人id |
+| 2   | qa001b | 年龄 |
+| 3   | gender | 性别 |
+| 4   | dispatch | 雇佣方法 |
+| 5   | qg12 | 工作总收入 |
+| 6   | qg10 | 是否提供公积金 |
+| 7   | qg1001 | 月度公积金数额 |
+| 8   | qg901 | 个人每月缴纳多少钱的保险 |
+| 9   | qg702 | 过去一年的福利金额 |
+| 10  | qn4003 | 工会成员 |
+| 11  | qg401 | 工作收入满意度 |
+| 12  | qg406 | 工作总体满意度 |
+| 13  | qg15  | 过去12个月是否升迁 |
+| 14  | qn10025 | 对政府官员信任程度 |
+| 15  | qn6011 | 认为政府腐败问题有多严重 |
+| 16  | qn6014 | 我国就业问题有多严重 |
+| 17  | qn6018 | 我国社会保障问题有多严重 |
+
+
+所有小于0的数值都被调整为NA。
+
+```{r 只保留合同工和派遣工}
+employment2018 <- cfps2018person_201909 %>%
+  filter(!(is.na(qg502)), qg5 == 1, qg502 > 0)
+```
+
+
+```{r dispatch-var}
+employment2018 <- employment2018 %>%
+  mutate(dispatch = ifelse(qg502 == 1, "Dispatch", "Contract"))
+
+
+ggplot(employment2018, aes(x = dispatch)) +
+  geom_histogram(stat="count") +
+  geom_text(stat = "count", aes(label=..count..), vjust = -0.1)
+```
+
+
+
+
+```{r 仅保留target variables}
+employment2018 <- employment2018[c("pid", "qa001b", "gender", "dispatch", "qg12", "qg10", "qg1001", "qg901", "qg702", "qn4003", "qg401", "qg406", "qg15", "qn10025", "qn6011", "qn6014", "qn6018")]
+
+```
+
+
+```{r 调整负值为NA}
+employment2018[employment2018 < 0] <- NA 
+```
+
+
+
+### 绘制箱图
+
+给以下四个变量绘制箱图
+
+| Num | var | label |
+| :--- | :---: | -----: |
+| 1   | qg12 | 工作总收入 |
+| 2   | qg1001 | 月度公积金数额 |
+| 3   | qg901 | 个人每月缴纳多少钱的保险 |
+| 4   | qg702 | 过去一年的福利金额 |
+
+
+#### 工作总收入
+
+```{r incomeBoxPlot}
+ggplot(data = subset(employment2018, !is.na(qg12)), aes(x = dispatch, y = qg12)) +
+  geom_boxplot(aes(fill = dispatch)) +
+  labs(x = "雇佣方法", y = "总收入") +
+  ggtitle("工作总收入（包含outliers）")
+
+ylim1 = boxplot.stats(employment2018$qg12)$stats[c(1, 5)]
+
+ggplot(data = subset(employment2018, !is.na(qg12)), aes(x = dispatch, y = qg12)) +
+  geom_boxplot(aes(fill = dispatch), outlier.shape = NA) +
+  labs(x = "雇佣方法", y = "总收入") +
+  ggtitle("工作总收入（去除outliers）") +
+  coord_cartesian(ylim = ylim1 * 1.05)
+```
+
+
+
+#### 月度公积金数额
+
+
+```{r ProvidentFundBoxplot}
+ggplot(data = subset(employment2018, !is.na(qg1001)), aes(x = dispatch, y = qg1001)) +
+  geom_boxplot(aes(fill = dispatch)) +
+  labs(x = "雇佣方法", y = "月度公积金数额") +
+  ggtitle("月度公积金数额（包含outliers）")
+
+ylim1 = boxplot.stats(employment2018$qg1001)$stats[c(1, 5)]
+
+ggplot(data = subset(employment2018, !is.na(qg1001)), aes(x = dispatch, y = qg1001)) +
+  geom_boxplot(aes(fill = dispatch), outlier.shape = NA) +
+  labs(x = "雇佣方法", y = "月度公积金数额") +
+  ggtitle("月度公积金数额（去除outliers）") +
+  coord_cartesian(ylim = ylim1 * 1.05)
+```
+
+
+
+
+#### 个人每月缴纳保险
+
+```{r insuranceBoxplot}
+ggplot(data = subset(employment2018, !is.na(qg901)), aes(x = dispatch, y = qg901)) +
+  geom_boxplot(aes(fill = dispatch)) +
+  labs(x = "雇佣方法", y = "每月缴纳保险") +
+  ggtitle("个人每月缴纳保险（包含outliers）")
+
+ylim1 = boxplot.stats(employment2018$qg901)$stats[c(1, 5)]
+
+ggplot(data = subset(employment2018, !is.na(qg901)), aes(x = dispatch, y = qg901)) +
+  geom_boxplot(aes(fill = dispatch), outlier.shape = NA) +
+  labs(x = "雇佣方法", y = "每月缴纳保险") +
+  ggtitle("个人每月缴纳保险（去除outliers）") +
+  coord_cartesian(ylim = ylim1 * 1.05)
+
+```
+
+
+#### 过去一年福利金额
+
+
+```{r welfareBoxplot}
+ggplot(data = subset(employment2018, !is.na(qg702)), aes(x = dispatch, y = qg702)) +
+  geom_boxplot(aes(fill = dispatch)) +
+  labs(x = "雇佣方法", y = "过去一年福利金额") +
+  ggtitle("过去一年福利金额（包含outliers）")
+
+ylim1 = boxplot.stats(employment2018$qg702)$stats[c(1, 5)]
+
+ggplot(data = subset(employment2018, !is.na(qg702)), aes(x = dispatch, y = qg702)) +
+  geom_boxplot(aes(fill = dispatch), outlier.shape = NA) +
+  labs(x = "雇佣方法", y = "过去一年福利金额") +
+  ggtitle("过去一年福利金额（去除outliers）") +
+  coord_cartesian(ylim = ylim1 * 1.05)
+```
+
+
+
+### Conditional Probability
+
+
+用conditional probability测试以下7个变量
+
+| Num | var | label |
+| :--- | :---: | -----: |
+| 1  | qg401 | 工作收入满意度 |
+| 2  | qg406 | 工作总体满意度 |
+| 3  | qg15  | 过去12个月是否升迁 |
+| 4  | qn10025 | 对政府官员信任程度 |
+| 5  | qn6011 | 认为政府腐败问题有多严重 |
+| 6  | qn6014 | 我国就业问题有多严重 |
+| 7  | qn6018 | 我国社会保障问题有多严重 |
+
+
+#### 工作收入满意程度
+
+qg401 = 1 非常不满意
+
+qg401 = 2 不太满意
+
+
+求值P(qg401 = 1 or 2 | dispatch == "Dispatch") vs. P(qg401 == 1 or 2 | dispatch == "Contract")
+
+
+**劳务派遣工人对工作收入不满意概率为0.227，略高于合同工人0.217**
+
+
+
+```{r 工作收入满意程度}
+probDispatch <- length(which(!is.na(employment2018$qg401) & employment2018$qg401 > 0 & employment2018$dispatch == "Dispatch")) / length(which(!is.na(employment2018$qg401) & employment2018$qg401 > 0))
+
+probContract <- length(which(!is.na(employment2018$qg401) & employment2018$qg401 > 0 & employment2018$dispatch == "Contract")) / length(which(!is.na(employment2018$qg401) & employment2018$qg401 > 0))
+
+probDisUnsatisfied <- length(which(!is.na(employment2018$qg401) & employment2018$qg401 > 0 & employment2018$dispatch == "Dispatch" & (employment2018$qg401 == 1 | employment2018$qg401 == 2))) / length(which(!is.na(employment2018$qg401) & employment2018$qg401 > 0))
+
+probConUnsatisfied <- length(which(!is.na(employment2018$qg401) & employment2018$qg401 > 0 & employment2018$dispatch == "Contract" & (employment2018$qg401 == 1 | employment2018$qg401 == 2))) / length(which(!is.na(employment2018$qg401) & employment2018$qg401 > 0))
+
+unsatGivDis <- probDisUnsatisfied / probDispatch
+
+unsatGivCon <- probConUnsatisfied / probContract
+
+unsatGivDis
+
+unsatGivCon
+  
+```
+
+
+#### 工作总体满意度
+
+qg406 = 1 非常不满意
+
+qg406 = 2 不太满意
+
+
+求值P(qg406 = 1 or 2 | dispatch == "Dispatch") vs. P(qg406 == 1 or 2 | dispatch == "Contract")
+
+
+**劳务派遣工人对工作收入不满意概率为0.109，略高于合同工人0.103**
+
+
+```{r 工作总体满意程度}
+probDispatch <- length(which(!is.na(employment2018$qg406) & employment2018$qg406 > 0 & employment2018$dispatch == "Dispatch")) / length(which(!is.na(employment2018$qg406) & employment2018$qg406 > 0))
+
+probContract <- length(which(!is.na(employment2018$qg406) & employment2018$qg406 > 0 & employment2018$dispatch == "Contract")) / length(which(!is.na(employment2018$qg406) & employment2018$qg406 > 0))
+
+probDisUnsatisfied <- length(which(!is.na(employment2018$qg406) & employment2018$qg406 > 0 & employment2018$dispatch == "Dispatch" & (employment2018$qg406 == 1 | employment2018$qg406 == 2))) / length(which(!is.na(employment2018$qg406) & employment2018$qg406 > 0))
+
+probConUnsatisfied <- length(which(!is.na(employment2018$qg406) & employment2018$qg406 > 0 & employment2018$dispatch == "Contract" & (employment2018$qg406 == 1 | employment2018$qg406 == 2))) / length(which(!is.na(employment2018$qg406) & employment2018$qg406 > 0))
+
+unsatGivDis <- probDisUnsatisfied / probDispatch
+
+unsatGivCon <- probConUnsatisfied / probContract
+
+unsatGivDis
+
+unsatGivCon
+  
+```
+
+
+
+#### 过去12月是否升迁
+
+qg15 = 1 行政职务晋升
+
+qg15 = 2 行政职务晋升
+
+qg15 = 3  两项都有
+
+
+求值P(qg15 = 1 or 2 or 3 | dispatch == "Dispatch") vs. P(qg15 == 1 or 2 or 3 | dispatch == "Contract")
+
+
+**劳务派遣工人过去12月晋升概率为0.136，略低于合同工人0.141**
+
+
+```{r 晋升}
+probDispatch <- length(which(!is.na(employment2018$qg15) & employment2018$qg15 > 0 & employment2018$dispatch == "Dispatch")) / length(which(!is.na(employment2018$qg15) & employment2018$qg15 > 0))
+
+probContract <- length(which(!is.na(employment2018$qg15) & employment2018$qg15 > 0 & employment2018$dispatch == "Contract")) / length(which(!is.na(employment2018$qg15) & employment2018$qg15 > 0))
+
+probDisProm <- length(which(!is.na(employment2018$qg15) & employment2018$qg15 > 0 & employment2018$dispatch == "Dispatch" & (employment2018$qg15 == 1 | employment2018$qg15 == 2 | employment2018$qg15 == 3))) / length(which(!is.na(employment2018$qg15) & employment2018$qg15 > 0))
+
+probConProm <- length(which(!is.na(employment2018$qg15) & employment2018$qg15 > 0 & employment2018$dispatch == "Contract" & (employment2018$qg15 == 1 | employment2018$qg15 == 2 | employment2018$qg15 == 3))) / length(which(!is.na(employment2018$qg15) & employment2018$qg15 > 0))
+
+promGivDis <- probDisProm / probDispatch
+
+promGivCon <- probConProm / probContract
+
+promGivDis
+
+promGivCon
+  
+```
+
+
+#### 对政府官员信任程度
+
+qn10025 on a scale of 1-10.
+
+
+求值P(qn10025 < 3 | dispatch == "Dispatch") vs. P(qn10025 < 3 | dispatch == "Contract")
+
+
+**劳务派遣工人对政府官员不信任概率为0.132，略高于合同工人0.106**
+
+
+```{r 对政府官员信任程度}
+probDispatch <- length(which(!is.na(employment2018$qn10025) & employment2018$qn10025 > 0 & employment2018$dispatch == "Dispatch")) / length(which(!is.na(employment2018$qn10025) & employment2018$qn10025 > 0))
+
+probContract <- length(which(!is.na(employment2018$qn10025) & employment2018$qn10025 > 0 & employment2018$dispatch == "Contract")) / length(which(!is.na(employment2018$qn10025) & employment2018$qn10025 > 0))
+
+probDisDist <- length(which(!is.na(employment2018$qn10025) & employment2018$qn10025 > 0 & employment2018$dispatch == "Dispatch" & employment2018$qn10025 < 3)) / length(which(!is.na(employment2018$qn10025) & employment2018$qn10025 > 0))
+
+probConDist <- length(which(!is.na(employment2018$qn10025) & employment2018$qn10025 > 0 & employment2018$dispatch == "Contract" & employment2018$qn10025 < 3)) / length(which(!is.na(employment2018$qn10025) & employment2018$qn10025 > 0))
+
+distGivDis <- probDisDist / probDispatch
+
+distGivCon <- probConDist / probContract
+
+distGivDis
+
+distGivCon
+  
+```
+
+
+#### 认为政府腐败问题有多严重
+
+qn6011 on a scale of 1-10.
+
+
+求值P(qn6011 > 8 | dispatch == "Dispatch") vs. P(qn6011 > 8 | dispatch == "Contract")
+
+
+**劳务派遣工人认为政府腐败问题严重概率为0.350，略高于合同工人0.324**
+
+
+```{r 腐败问题}
+probDispatch <- length(which(!is.na(employment2018$qn6011) & employment2018$qn6011 > 0 & employment2018$dispatch == "Dispatch")) / length(which(!is.na(employment2018$qn6011) & employment2018$qn6011 > 0))
+
+probContract <- length(which(!is.na(employment2018$qn6011) & employment2018$qn6011 > 0 & employment2018$dispatch == "Contract")) / length(which(!is.na(employment2018$qn6011) & employment2018$qn6011 > 0))
+
+probDisCorr <- length(which(!is.na(employment2018$qn6011) & employment2018$qn6011 > 0 & employment2018$dispatch == "Dispatch" & employment2018$qn6011 > 8)) / length(which(!is.na(employment2018$qn6011) & employment2018$qn6011 > 0))
+
+probConCorr <- length(which(!is.na(employment2018$qn6011) & employment2018$qn6011 > 0 & employment2018$dispatch == "Contract" & employment2018$qn6011 > 8)) / length(which(!is.na(employment2018$qn6011) & employment2018$qn6011 > 0))
+
+corrGivDis <- probDisCorr / probDispatch
+
+corrGivCon <- probConCorr / probContract
+
+corrGivDis
+
+corrGivCon
+  
+```
+
+
+#### 认为就业问题有多严重
+
+
+
+qn6014 on a scale of 1-10.
+
+
+
+求值P(qn6014 > 8 | dispatch == "Dispatch") vs. P(qn6014 > 8 | dispatch == "Contract")
+
+
+**劳务派遣工人认为就业问题问题严重概率为0.242，略高于合同工人0.210**
+
+
+```{r 就业问题}
+probDispatch <- length(which(!is.na(employment2018$qn6014) & employment2018$qn6014 > 0 & employment2018$dispatch == "Dispatch")) / length(which(!is.na(employment2018$qn6014) & employment2018$qn6014 > 0))
+
+probContract <- length(which(!is.na(employment2018$qn6014) & employment2018$qn6014 > 0 & employment2018$dispatch == "Contract")) / length(which(!is.na(employment2018$qn6014) & employment2018$qn6014 > 0))
+
+probDisJob <- length(which(!is.na(employment2018$qn6014) & employment2018$qn6014 > 0 & employment2018$dispatch == "Dispatch" & employment2018$qn6014 > 8)) / length(which(!is.na(employment2018$qn6014) & employment2018$qn6014 > 0))
+
+probConJob <- length(which(!is.na(employment2018$qn6014) & employment2018$qn6014 > 0 & employment2018$dispatch == "Contract" & employment2018$qn6014 > 8)) / length(which(!is.na(employment2018$qn6014) & employment2018$qn6014 > 0))
+
+jobGivDis <- probDisJob / probDispatch
+
+jobGivCon <- probConJob / probContract
+
+jobGivDis
+
+jobGivCon
+  
+```
+
+
+
+
+#### 认为社会保障问题有多严重
+
+
+qn6018 on a scale of 1-10.
+
+
+
+求值P(qn6018 > 8 | dispatch == "Dispatch") vs. P(qn6018 > 8 | dispatch == "Contract")
+
+
+**劳务派遣工人认为社会保障问题严重概率为0.260，略高于合同工人0.230**
+
+
+```{r 社会保障}
+probDispatch <- length(which(!is.na(employment2018$qn6018) & employment2018$qn6018 > 0 & employment2018$dispatch == "Dispatch")) / length(which(!is.na(employment2018$qn6018) & employment2018$qn6018 > 0))
+
+probContract <- length(which(!is.na(employment2018$qn6018) & employment2018$qn6018 > 0 & employment2018$dispatch == "Contract")) / length(which(!is.na(employment2018$qn6018) & employment2018$qn6018 > 0))
+
+probDisSS <- length(which(!is.na(employment2018$qn6018) & employment2018$qn6018 > 0 & employment2018$dispatch == "Dispatch" & employment2018$qn6018 > 8)) / length(which(!is.na(employment2018$qn6018) & employment2018$qn6018 > 0))
+
+probConSS <- length(which(!is.na(employment2018$qn6018) & employment2018$qn6018 > 0 & employment2018$dispatch == "Contract" & employment2018$qn6018 > 8)) / length(which(!is.na(employment2018$qn6018) & employment2018$qn6018 > 0))
+
+ssGivDis <- probDisSS / probDispatch
+
+ssGivCon <- probConSS / probContract
+
+ssGivDis
+
+ssGivCon
+  
+```
