@@ -1,0 +1,165 @@
+---
+title: "20191114 Additional Control Vars"
+author: "Hanqian Zhang"
+date: "2019/11/14"
+output: html_document
+---
+
+## Setup
+
+
+### Load Packages
+
+```{r load-packages}
+library(ggplot2)
+library(dplyr)
+library(statsr)
+library(gmodels)
+```
+
+### Load Data
+
+```{r load-data}
+library(haven)
+cfps2018person_201909 <- read_dta("D:/CFPS Research-20191101T212903Z-001/CFPS Research/Data/[CFPS+Public+Data]+CFPS+2018+in+STATA+(Chinese)/[CFPS Public Data] CFPS 2018 in STATA (Chinese)/cfps2018person_201909.dta")
+library(haven)
+cfps2018famecon_201909 <- read_dta("D:/CFPS Research-20191101T212903Z-001/CFPS Research/Data/[CFPS+Public+Data]+CFPS+2018+in+STATA+(Chinese)/[CFPS Public Data] CFPS 2018 in STATA (Chinese)/cfps2018famecon_201909.dta")
+```
+
+
+### 添加新的control variables
+
+在该步骤后新增的control vars：
+
+
+基本信息变量：
+
+
+| Num | var | label |
+| :--- | :---: | -----: |
+| 1   | qea0 | 当前婚姻状态 |
+
+
+待遇类变量：
+| Num | var | label |
+| :--- | :---: | -----: |
+| 1   | qp605 | 您享有哪些医疗保险 |
+
+
+
+科技类变量
+
+
+| Num | var | label |
+| :--- | :---: | -----: |
+| 1   | qu201 | 是否移动上网 |
+| 2   | qu202 | 是否电脑上网 |
+| 3   | qu802 | 互联网对您获取信息的重要性 |
+| 4   | qu702 | 使用互联网工作的频率 |
+
+
+
+教育类变量
+
+
+| :--- | :---: | -----: |
+| 1   | w01 | 最高学历 |
+| 2   | kwa2 | 没升学的原因 |
+
+
+
+政治参与变量
+
+
+| :--- | :---: | -----: |
+| 1   | qn203 | 过去12个月是否在网上发表过与政治问题和国家大事相关的言论 |
+| 2   | qn4001 | 是否是党员 |
+| 3   | qn201  | 通过电视台了解政治 |
+| 4   | qn202  | 通过网络了解政治 |
+
+
+
+上次cleaning选取的variable：
+
+
+| Num | var | label |
+| :--- | :---: | -----: |
+| 1   | pid | 个人id |
+| 2   | qa001b | 年龄 |
+| 3   | gender | 性别 |
+| 4   | dispatch | 雇佣方法 |
+| 5   | qg12 | 工作总收入 |
+| 6   | qg10 | 是否提供公积金 |
+| 7   | qg1001 | 月度公积金数额 |
+| 8   | qg901 | 个人每月缴纳多少钱的保险 |
+| 9   | qg702 | 过去一年的福利金额 |
+| 10  | qn4003 | 工会成员 |
+| 11  | qg401 | 工作收入满意度 |
+| 12  | qg406 | 工作总体满意度 |
+| 13  | qg15  | 过去12个月是否升迁 |
+| 14  | qn10025 | 对政府官员信任程度 |
+| 15  | qn6011 | 认为政府腐败问题有多严重 |
+| 16  | qn6014 | 我国就业问题有多严重 |
+| 17  | qn6018 | 我国社会保障问题有多严重 |
+
+
+
+所有小于0的数值都被调整为NA。
+
+```{r 只保留合同工和派遣工}
+employment2018 <- cfps2018person_201909 %>%
+  filter(!(is.na(qg502)), qg5 == 1, qg502 > 0)
+```
+
+
+
+
+
+```{r 汇总qp605}
+
+
+employment2018 <-employment2018 %>%
+  mutate(qp605 = ifelse(qp605_s_1 == 1 | qp605_s_2 == 1 | qp605_s_3 == 1 | qp605_s_4 == 1 | qp605_s_5 == 1 | qp605_s_6 == 1, "公费治疗", 
+                        ifelse(qp605_s_1 == 2 | qp605_s_2 == 2 | qp605_s_3 == 2 | qp605_s_4 == 2 | qp605_s_5 == 2 | qp605_s_6 == 2, "城镇治疗", 
+                               ifelse(qp605_s_1 == 3 | qp605_s_2 == 3 | qp605_s_3 == 3 | qp605_s_4 == 3 | qp605_s_5 == 3 | qp605_s_6 == 3, "城镇居民",
+                                      ifelse(qp605_s_1 == 4 | qp605_s_2 == 4 | qp605_s_3 == 4 | qp605_s_4 == 4 | qp605_s_5 == 4 | qp605_s_6 == 4, "补充医疗",
+                                             ifelse(qp605_s_1 == 5 | qp605_s_2 == 5 | qp605_s_3 == 5 | qp605_s_4 == 5 | qp605_s_5 == 5 | qp605_s_6 == 5, "新型农村", 
+                                                    ifelse(qp605_s_1 == 78 | qp605_s_2 == 78 | qp605_s_3 == 78 | qp605_s_4 == 78 | qp605_s_5 == 78 | qp605_s_6 == 78, "一无所有", NA)))))))
+
+
+
+ggplot(employment2018, aes(x = qp605)) +
+  geom_histogram(stat="count") +
+  geom_text(stat = "count", aes(label=..count..), vjust = -0.1)
+
+table(employment2018$qp605)
+```
+
+```{r 调整负值为NA}
+employment2018[employment2018 < 0] <- NA 
+```
+
+```{r dispatch-var}
+employment2018 <- employment2018 %>%
+  mutate(dispatch = ifelse(qg502 == 1, "Dispatch", "Contract"))
+
+
+ggplot(employment2018, aes(x = dispatch)) +
+  geom_histogram(stat="count") +
+  geom_text(stat = "count", aes(label=..count..), vjust = -0.1)
+```
+
+
+
+
+```{r 仅保留target variables}
+employment2018 <- employment2018[c("pid", "qa001b", "gender", "dispatch", "qg12", "qg10", "qg1001", "qg901", "qg702", "qn4003", "qg401", "qg406", "qg15", "qn10025", "qn6011", "qn6014", "qn6018", "qea0", "qp605", "qu201", "qu202", "qu802", "qu702", "w01", "kwa2_b_1", "qn203", "qn4001", "qn201_b_1", "qn202", "qp605")]
+
+```
+
+
+```{r exportData}
+library(foreign)
+write.dta(employment2018, "/Users/tylerzhang/Desktop/CFPS Research-20191101T212903Z-001/dispatchedworkersCFPS/employment2018.dta")
+```
+
