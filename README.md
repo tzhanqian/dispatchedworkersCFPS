@@ -1,10 +1,10 @@
-# Detecting Distinctive Features of Dispatched Laborers with Machine Learning
+# Detecting Distinctive Features of Dispatched Employees with Machine Learning
 
  [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) 
 
 ## 1. Introduction
 
-This project aims at detecting the factors that distinguish dispatched workers from regular employees with classification and clustering algorithms.
+This project aims at detecting the factors that distinguish dispatched employees from regular employees with classification and clustering algorithms.
 
 
 
