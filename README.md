@@ -59,11 +59,11 @@ Project length: 2 months
 
 - [x] Started to look at CFPS 2018 cross-sectional data, define relevant variables (*`qg502` labeling whether the subject is a DE*)
 
-  > Output: CFPS Relevant Features and Hypothesis.doc, [link]()
+  > Output: CFPS Relevant Features and Hypothesis.doc, [link](https://github.com/tzhanqian/dispatchedworkersCFPS/blob/master/data/Relevant%20Features%20and%20Research%20Hypothesis.docx)
 
 - [x] Checked the differences in summary statistics (*mean, median*) of relevant variables across DE and RE to see if there are significance
 
-  > Output: 20191102-Preliminary-Prep.Rmd, [link]()
+  > Output: 20191102-Preliminary-Prep.Rmd, [link](https://github.com/tzhanqian/dispatchedworkersCFPS/blob/master/notebooks/EDA/20191102%20Preliminary%20Prep.Rmd)
 
 
 
@@ -73,14 +73,14 @@ Project length: 2 months
 
 - [x] Started to work on data cleaning, produced first version of cleaned dataset
 
-  > Output: employment2018.csv, [link]()
+  > Output: employment2018.csv, [link](https://github.com/tzhanqian/dispatchedworkersCFPS/blob/master/data/employment2018.csv)
 
 - [x] Continued to work on exploratory data analysis (*here after: EDA*) to further check how certain categorical variables differ across DE and RE:
 
   - Used conditional probability to quantify the empirical probability of belonging to DE given belonging to certain category (*exp. given unsatisfied of social equality, how likely the subject belongs to DE*)
   - Used box plots to visualize the difference in sample distribution of continuous variables across DE and RE groups
 
-  > Output: 20191112-Data-Cleaning-Box-Plots-Conditional-Prob.Rmd, [link]()
+  > Output: 20191112-Data-Cleaning-Box-Plots-Conditional-Prob.Rmd, [link](https://github.com/tzhanqian/dispatchedworkersCFPS/blob/master/notebooks/EDA/20191112%20Data%20Cleaning-Box%20Plots-Conditional%20Prob.Rmd)
 
 - [x] Introduced to classification and feature selection methods, namely, `Logistic Regression`, `Lasso Regression` and `Ridge Regression`
 
