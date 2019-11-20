@@ -85,7 +85,7 @@ cfps2018famecon_201909 <- read_dta("D:/CFPS Research-20191101T212903Z-001/CFPS R
 | Num | var | label |
 | :--- | :---: | -----: |
 | 1   | pid | 个人id |
-| 2   | qa001b | 年龄 |
+| 2   | age | 年龄 |
 | 3   | gender | 性别 |
 | 4   | dispatch | 雇佣方法 |
 | 5   | qg12 | 工作总收入 |
@@ -110,6 +110,7 @@ cfps2018famecon_201909 <- read_dta("D:/CFPS Research-20191101T212903Z-001/CFPS R
 employment2018 <- cfps2018person_201909 %>%
   filter(!(is.na(qg502)), qg5 == 1, qg502 > 0)
 ```
+
 
 
 
@@ -153,13 +154,14 @@ ggplot(employment2018, aes(x = dispatch)) +
 
 
 ```{r 仅保留target variables}
-employment2018 <- employment2018[c("pid", "qa001b", "gender", "dispatch", "qg12", "qg10", "qg1001", "qg901", "qg702", "qn4003", "qg401", "qg406", "qg15", "qn10025", "qn6011", "qn6014", "qn6018", "qea0", "qp605", "qu201", "qu202", "qu802", "qu702", "w01", "kwa2_b_1", "qn203", "qn4001", "qn201_b_1", "qn202", "qp605")]
+employment2018 <- employment2018[c("pid", "age", "gender", "dispatch", "qg12", "qg10", "qg1001", "qg901", "qg702", "qn4003", "qg401", "qg406", "qg15", "qn10025", "qn6011", "qn6014", "qn6018", "qea0", "qp605", "qu201", "qu202", "qu802", "qu702", "w01", "kwa2_b_1", "qn203", "qn4001", "qn201_b_1", "qn202", "qp605")]
 
 ```
 
 
 ```{r exportData}
 library(foreign)
-write.dta(employment2018, "/Users/tylerzhang/Desktop/CFPS Research-20191101T212903Z-001/dispatchedworkersCFPS/employment2018.dta")
+write.dta(employment2018, "/Users/tylerzhang/Desktop/CFPS Research-20191101T212903Z-001/dispatchedworkersCFPS/data/employment2018.dta")
+write.csv(employment2018, "/Users/tylerzhang/Desktop/CFPS Research-20191101T212903Z-001/dispatchedworkersCFPS/data/employment2018.csv")
 ```
 
