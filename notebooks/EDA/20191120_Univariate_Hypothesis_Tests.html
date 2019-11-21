@@ -416,6 +416,8 @@ library(psych)</code></pre>
 <pre><code>## The following objects are masked from 'package:ggplot2':
 ## 
 ##     %+%, alpha</code></pre>
+<pre class="r"><code>library(irr)</code></pre>
+<pre><code>## Loading required package: lpSolve</code></pre>
 </div>
 <div id="load-data" class="section level3">
 <h3>Load Data</h3>
@@ -426,7 +428,8 @@ library(psych)</code></pre>
 <p>Check if the continuous variable is different across DE and RE significantly with <code>ANOVA</code></p>
 <p>Test the strength of such association with <code>intra-class correlation</code>.</p>
 <p>Null Hypothesis: The means of continuous variable for DE and RE are the same.</p>
-<p>ANOVA Results</p>
+<div id="anova-results" class="section level4">
+<h4>ANOVA Results</h4>
 <table>
 <thead>
 <tr class="header">
@@ -559,6 +562,142 @@ library(psych)</code></pre>
 </tr>
 </tbody>
 </table>
+</div>
+<div id="intraclass-correlation-results" class="section level4">
+<h4>Intraclass Correlation Results</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Num</th>
+<th align="center">var</th>
+<th align="center">label</th>
+<th align="center">ICC value</th>
+<th align="right">95% CI of ICC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="center">age</td>
+<td align="center">年龄</td>
+<td align="center">0.001088946</td>
+<td align="right">[-0.0006684184, 0.6906002]</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="center">qg12</td>
+<td align="center">工作总收入</td>
+<td align="center">0.01500468</td>
+<td align="right">[0.002138099, 0.9432771]</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="center">qg1001</td>
+<td align="center">月度公积金数额</td>
+<td align="center">0.05798476</td>
+<td align="right">[0.01122362, 0.9845628]</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="center">qg901</td>
+<td align="center">个人每月缴纳多少钱的保险</td>
+<td align="center">0.03378815</td>
+<td align="right">[0.006033954, 0.9734842]</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="center">qg702</td>
+<td align="center">过去一年的福利金额</td>
+<td align="center">0.004679272</td>
+<td align="right">[0.006033954, 0.9734842]</td>
+</tr>
+<tr class="even">
+<td align="left">6</td>
+<td align="center">qg401</td>
+<td align="center">工作收入满意度</td>
+<td align="center">0.006341793</td>
+<td align="right">[0.0004043133, 0.8836294]</td>
+</tr>
+<tr class="odd">
+<td align="left">7</td>
+<td align="center">qg406</td>
+<td align="center">工作总体满意度</td>
+<td align="center">0.003071539</td>
+<td align="right">[-0.0002393089, 0.8083172]</td>
+</tr>
+<tr class="even">
+<td align="left">8</td>
+<td align="center">qg15</td>
+<td align="center">过去12个月是否升迁</td>
+<td align="center">0.0000000000</td>
+<td align="right">[-0.0008769064, 0.5263395]</td>
+</tr>
+<tr class="odd">
+<td align="left">9</td>
+<td align="center">qn10025</td>
+<td align="center">对政府官员信任程度</td>
+<td align="center">4.811808e-10</td>
+<td align="right">[-0.0008855657, 0.5287866]</td>
+</tr>
+<tr class="even">
+<td align="left">10</td>
+<td align="center">qn6011</td>
+<td align="center">认为政府腐败问题有多严重</td>
+<td align="center">0.004317418</td>
+<td align="right">[-2.282288e-05, 0.8470133]</td>
+</tr>
+<tr class="odd">
+<td align="left">11</td>
+<td align="center">qn6014</td>
+<td align="center">我国就业问题有多严重</td>
+<td align="center">0.004208596</td>
+<td align="right">[-3.327471e-05, 0.8440032]</td>
+</tr>
+<tr class="even">
+<td align="left">12</td>
+<td align="center">qn6018</td>
+<td align="center">我国社会保障问题有多严重</td>
+<td align="center">0.002219837</td>
+<td align="right">[-0.0004048158, 0.7695461]</td>
+</tr>
+<tr class="odd">
+<td align="left">13</td>
+<td align="center">qu802</td>
+<td align="center">互联网对您获取信息的重要性</td>
+<td align="center">0.006408379</td>
+<td align="right">[0.0003970454, 0.8849001]</td>
+</tr>
+<tr class="even">
+<td align="left">14</td>
+<td align="center">qu702</td>
+<td align="center">使用互联网工作的频率</td>
+<td align="center">0.009059340</td>
+<td align="right">[0.0009350596, 0.9124673]</td>
+</tr>
+<tr class="odd">
+<td align="left">15</td>
+<td align="center">w01</td>
+<td align="center">最高学历</td>
+<td align="center">0.05614695</td>
+<td align="right">[0.01081839, 0.9840456]</td>
+</tr>
+<tr class="even">
+<td align="left">16</td>
+<td align="center">qn201</td>
+<td align="center">通过电视台了解政治</td>
+<td align="center">0.0001784571</td>
+<td align="right">[-0.0008499844 0.5659573]</td>
+</tr>
+<tr class="odd">
+<td align="left">17</td>
+<td align="center">qn202</td>
+<td align="center">通过网络了解政治</td>
+<td align="center">0.008747656</td>
+<td align="right">[0.0008684445, 0.9099582]</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div id="age" class="section level4">
 <h4>age</h4>
 <pre class="r"><code>age.aov &lt;- aov(age ~ dispatch.Dispatch, data = preprocessed2018)
@@ -566,27 +705,53 @@ summary(age.aov)</code></pre>
 <pre><code>##                     Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## dispatch.Dispatch    1      0  0.0395   0.039  0.842
 ## Residuals         4122   4123  1.0002</code></pre>
-<pre class="r"><code>ageICC &lt;- preprocessed2018[c(4, 24)]
-ICC(ageICC, alpha = 0.5) </code></pre>
-<pre><code>## Call: ICC(x = ageICC, alpha = 0.5)
+<pre class="r"><code>ageICCDE &lt;- preprocessed2018[24] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+ageICCRE &lt;- preprocessed2018[24] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+ageICC &lt;- t(data.matrix(data.frame(ageICCDE, ageICCRE[1:906,])))
+ICC(ageICC, alpha = 0.05) </code></pre>
+<pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
+<pre><code>## Call: ICC(x = ageICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
-##                          type     ICC    F  df1  df2    p lower bound
-## Single_raters_absolute   ICC1 -0.0179 0.96 4123 4124 0.87     -0.0284
-## Single_random_raters     ICC2  0.0021 1.00 4123 4123 0.44     -0.0080
-## Single_fixed_raters      ICC3  0.0022 1.00 4123 4123 0.44     -0.0083
-## Average_raters_absolute ICC1k -0.0365 0.96 4123 4124 0.87     -0.0585
-## Average_random_raters   ICC2k  0.0042 1.00 4123 4123 0.44     -0.0161
-## Average_fixed_raters    ICC3k  0.0044 1.00 4123 4123 0.44     -0.0167
+##                          type    ICC F df1  df2    p lower bound
+## Single_raters_absolute   ICC1 0.0011 2   1 1810 0.16    -0.00067
+## Single_random_raters     ICC2 0.0011 2   1  905 0.16    -0.00067
+## Single_fixed_raters      ICC3 0.0011 2   1  905 0.16    -0.00067
+## Average_raters_absolute ICC1k 0.4969 2   1 1810 0.16    -1.53175
+## Average_random_raters   ICC2k 0.4969 2   1  905 0.16    -1.53282
+## Average_fixed_raters    ICC3k 0.4969 2   1  905 0.16    -1.53597
 ##                         upper bound
-## Single_raters_absolute      -0.0074
-## Single_random_raters         0.0122
-## Single_fixed_raters          0.0127
-## Average_raters_absolute     -0.0149
-## Average_random_raters        0.0241
-## Average_fixed_raters         0.0251
+## Single_raters_absolute         0.69
+## Single_random_raters           0.69
+## Single_fixed_raters            0.69
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
 ## 
-##  Number of subjects = 4124     Number of Judges =  2</code></pre>
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
+<pre class="r"><code>ICC(ageICC)</code></pre>
+<pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
+<pre><code>## Call: ICC(x = ageICC)
+## 
+## Intraclass correlation coefficients 
+##                          type    ICC F df1  df2    p lower bound
+## Single_raters_absolute   ICC1 0.0011 2   1 1810 0.16    -0.00067
+## Single_random_raters     ICC2 0.0011 2   1  905 0.16    -0.00067
+## Single_fixed_raters      ICC3 0.0011 2   1  905 0.16    -0.00067
+## Average_raters_absolute ICC1k 0.4969 2   1 1810 0.16    -1.53175
+## Average_random_raters   ICC2k 0.4969 2   1  905 0.16    -1.53282
+## Average_fixed_raters    ICC3k 0.4969 2   1  905 0.16    -1.53597
+##                         upper bound
+## Single_raters_absolute         0.69
+## Single_random_raters           0.69
+## Single_fixed_raters            0.69
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 <pre class="r"><code># because each of the two categories (dispatch.Dispatch == 0, dispatch.Dispatch == 1) there are multiple different ratings (age), we will use ICC2 to measure the Intraclass Correlation Coefficient
 # ICC1: Each target is rated by a different judge and the judges are selected at random. 
 # ICC2: A random sample of k judges rate each target.
@@ -601,6 +766,32 @@ summary(qg12.aov)</code></pre>
 ## Residuals         4122   4094   0.993                     
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre class="r"><code>qg12ICCDE &lt;- preprocessed2018[25] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg12ICCRE &lt;- preprocessed2018[25] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg12ICC &lt;- t(data.matrix(data.frame(qg12ICCDE, qg12ICCRE[1:906,])))
+ICC(qg12ICC, alpha = 0.05) </code></pre>
+<pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
+<pre><code>## Call: ICC(x = qg12ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type   ICC  F df1  df2       p lower bound
+## Single_raters_absolute   ICC1 0.015 15   1 1810 0.00012      0.0021
+## Single_random_raters     ICC2 0.015 15   1  905 0.00013      0.0021
+## Single_fixed_raters      ICC3 0.015 15   1  905 0.00013      0.0021
+## Average_raters_absolute ICC1k 0.932 15   1 1810 0.00012      0.6600
+## Average_random_raters   ICC2k 0.932 15   1  905 0.00013      0.6600
+## Average_fixed_raters    ICC3k 0.932 15   1  905 0.00013      0.6594
+##                         upper bound
+## Single_raters_absolute         0.94
+## Single_random_raters           0.94
+## Single_fixed_raters            0.94
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qg1001" class="section level4">
 <h4>qg1001月度公积金数额</h4>
@@ -611,6 +802,31 @@ summary(qg1001.aov)</code></pre>
 ## Residuals         4122   4090    0.99                     
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre class="r"><code>qg1001ICCDE &lt;- preprocessed2018[26] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg1001ICCRE &lt;- preprocessed2018[26] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg1001ICC &lt;- t(data.matrix(data.frame(qg1001ICCDE, qg1001ICCRE[1:906,])))
+ICC(qg1001ICC, alpha = 0.05) </code></pre>
+<pre><code>## Call: ICC(x = qg1001ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type   ICC  F df1  df2       p lower bound
+## Single_raters_absolute   ICC1 0.058 57   1 1810 7.7e-14       0.011
+## Single_random_raters     ICC2 0.058 57   1  905 1.1e-13       0.011
+## Single_fixed_raters      ICC3 0.058 57   1  905 1.1e-13       0.011
+## Average_raters_absolute ICC1k 0.982 57   1 1810 7.7e-14       0.911
+## Average_random_raters   ICC2k 0.982 57   1  905 1.1e-13       0.911
+## Average_fixed_raters    ICC3k 0.982 57   1  905 1.1e-13       0.912
+##                         upper bound
+## Single_raters_absolute         0.98
+## Single_random_raters           0.98
+## Single_fixed_raters            0.98
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qg901" class="section level4">
 <h4>qg901个人每月缴纳多少钱的保险</h4>
@@ -621,6 +837,34 @@ summary(qg901.aov)</code></pre>
 ## Residuals         4122   4104   0.996                     
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre class="r"><code>qg901ICCDE &lt;- preprocessed2018[27] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg901ICCRE &lt;- preprocessed2018[27] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg901ICC &lt;- t(data.matrix(data.frame(qg901ICCDE, qg901ICCRE[1:906,])))
+ICC(qg901ICC, alpha = 0.05) </code></pre>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
+## control$checkConv, : Model failed to converge with max|grad| = 0.00345225
+## (tol = 0.002, component 1)</code></pre>
+<pre><code>## Call: ICC(x = qg901ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type   ICC  F df1  df2       p lower bound
+## Single_raters_absolute   ICC1 0.034 33   1 1810 1.3e-08      0.0060
+## Single_random_raters     ICC2 0.034 33   1  905 1.3e-08      0.0060
+## Single_fixed_raters      ICC3 0.034 33   1  905 1.3e-08      0.0061
+## Average_raters_absolute ICC1k 0.969 33   1 1810 1.3e-08      0.8460
+## Average_random_raters   ICC2k 0.969 33   1  905 1.3e-08      0.8462
+## Average_fixed_raters    ICC3k 0.970 33   1  905 1.3e-08      0.8468
+##                         upper bound
+## Single_raters_absolute         0.97
+## Single_random_raters           0.97
+## Single_fixed_raters            0.97
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qg702-" class="section level4">
 <h4>qg702 过去一年的福利金额</h4>
@@ -629,6 +873,31 @@ summary(qg702.aov)</code></pre>
 <pre><code>##                     Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## dispatch.Dispatch    1      2  2.0793    2.08  0.149
 ## Residuals         4122   4121  0.9997</code></pre>
+<pre class="r"><code>qg702ICCDE &lt;- preprocessed2018[28] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg702ICCRE &lt;- preprocessed2018[28] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg702ICC &lt;- t(data.matrix(data.frame(qg702ICCDE, qg702ICCRE[1:906,])))
+ICC(qg702ICC, alpha = 0.05) </code></pre>
+<pre><code>## Call: ICC(x = qg702ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type    ICC   F df1  df2     p lower bound
+## Single_raters_absolute   ICC1 0.0047 5.3   1 1810 0.022     4.9e-05
+## Single_random_raters     ICC2 0.0047 5.3   1  905 0.022     5.3e-05
+## Single_fixed_raters      ICC3 0.0047 5.3   1  905 0.022     5.1e-05
+## Average_raters_absolute ICC1k 0.8097 5.3   1 1810 0.022     4.3e-02
+## Average_random_raters   ICC2k 0.8099 5.3   1  905 0.022     4.5e-02
+## Average_fixed_raters    ICC3k 0.8104 5.3   1  905 0.022     4.4e-02
+##                         upper bound
+## Single_raters_absolute         0.86
+## Single_random_raters           0.86
+## Single_fixed_raters            0.86
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qg401-" class="section level4">
 <h4>qg401 工作收入满意度</h4>
@@ -637,6 +906,31 @@ summary(qg401.aov)</code></pre>
 <pre><code>##                     Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## dispatch.Dispatch    1      1   0.667   0.667  0.414
 ## Residuals         4122   4122   1.000</code></pre>
+<pre class="r"><code>qg401ICCDE &lt;- preprocessed2018[29] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg401ICCRE &lt;- preprocessed2018[29] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg401ICC &lt;- t(data.matrix(data.frame(qg401ICCDE, qg401ICCRE[1:906,])))
+ICC(qg401ICC, alpha = 0.05) </code></pre>
+<pre><code>## Call: ICC(x = qg401ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type    ICC   F df1  df2      p lower bound
+## Single_raters_absolute   ICC1 0.0063 6.8   1 1810 0.0094     0.00038
+## Single_random_raters     ICC2 0.0063 6.9   1  905 0.0087     0.00040
+## Single_fixed_raters      ICC3 0.0065 6.9   1  905 0.0087     0.00041
+## Average_raters_absolute ICC1k 0.8520 6.8   1 1810 0.0094     0.25547
+## Average_random_raters   ICC2k 0.8526 6.9   1  905 0.0087     0.26818
+## Average_fixed_raters    ICC3k 0.8555 6.9   1  905 0.0087     0.27165
+##                         upper bound
+## Single_raters_absolute         0.88
+## Single_random_raters           0.88
+## Single_fixed_raters            0.89
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qg406-" class="section level4">
 <h4>qg406 工作总体满意度</h4>
@@ -645,6 +939,31 @@ summary(qg406.aov)</code></pre>
 <pre><code>##                     Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## dispatch.Dispatch    1      1  0.7118   0.712  0.399
 ## Residuals         4122   4122  1.0001</code></pre>
+<pre class="r"><code>qg406ICCDE &lt;- preprocessed2018[30] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg406ICCRE &lt;- preprocessed2018[30] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg406ICC &lt;- t(data.matrix(data.frame(qg406ICCDE, qg406ICCRE[1:906,])))
+ICC(qg406ICC, alpha = 0.05) </code></pre>
+<pre><code>## Call: ICC(x = qg406ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type    ICC   F df1  df2     p lower bound
+## Single_raters_absolute   ICC1 0.0030 3.8   1 1810 0.053    -0.00028
+## Single_random_raters     ICC2 0.0031 3.9   1  905 0.049    -0.00024
+## Single_fixed_raters      ICC3 0.0032 3.9   1  905 0.049    -0.00025
+## Average_raters_absolute ICC1k 0.7336 3.8   1 1810 0.053    -0.34047
+## Average_random_raters   ICC2k 0.7362 3.9   1  905 0.049    -0.27675
+## Average_fixed_raters    ICC3k 0.7436 3.9   1  905 0.049    -0.29263
+##                         upper bound
+## Single_raters_absolute         0.81
+## Single_random_raters           0.81
+## Single_fixed_raters            0.81
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qg15-12" class="section level4">
 <h4>qg15 过去12个月是否升迁</h4>
@@ -653,6 +972,32 @@ summary(qg15.aov)</code></pre>
 <pre><code>##                     Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## dispatch.Dispatch    1      0  0.3223   0.322   0.57
 ## Residuals         4122   4123  1.0002</code></pre>
+<pre class="r"><code>qg15ICCDE &lt;- preprocessed2018[31] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg15ICCRE &lt;- preprocessed2018[31] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg15ICC &lt;- t(data.matrix(data.frame(qg15ICCDE, qg15ICCRE[1:906,])))
+ICC(qg15ICC, alpha = 0.05) </code></pre>
+<pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
+<pre><code>## Call: ICC(x = qg15ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type      ICC    F df1  df2    p lower bound
+## Single_raters_absolute   ICC1 -1.1e-05 0.99   1 1810 0.32    -0.00089
+## Single_random_raters     ICC2  0.0e+00 1.00   1  905 0.32    -0.00088
+## Single_fixed_raters      ICC3  0.0e+00 1.00   1  905 0.32    -0.00089
+## Average_raters_absolute ICC1k -9.9e-03 0.99   1 1810 0.32    -4.08191
+## Average_random_raters   ICC2k  0.0e+00 1.00   1  905 0.32    -3.84922
+## Average_fixed_raters    ICC3k  0.0e+00 1.00   1  905 0.32    -4.04065
+##                         upper bound
+## Single_raters_absolute         0.53
+## Single_random_raters           0.53
+## Single_fixed_raters            0.53
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qn10025-" class="section level4">
 <h4>qn10025 对政府官员信任程度</h4>
@@ -661,6 +1006,32 @@ summary(qn10025.aov)</code></pre>
 <pre><code>##                     Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## dispatch.Dispatch    1      3  2.6081   2.609  0.106
 ## Residuals         4122   4120  0.9996</code></pre>
+<pre class="r"><code>qn10025ICCDE &lt;- preprocessed2018[32] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qn10025ICCRE &lt;- preprocessed2018[32] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qn10025ICC &lt;- t(data.matrix(data.frame(qn10025ICCDE, qn10025ICCRE[1:906,])))
+ICC(qn10025ICC, alpha = 0.05) </code></pre>
+<pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
+<pre><code>## Call: ICC(x = qn10025ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type     ICC F df1  df2    p lower bound
+## Single_raters_absolute   ICC1 4.8e-10 1   1 1810 0.32    -0.00089
+## Single_random_raters     ICC2 4.8e-10 1   1  905 0.32    -0.00089
+## Single_fixed_raters      ICC3 4.8e-10 1   1  905 0.32    -0.00089
+## Average_raters_absolute ICC1k 4.4e-07 1   1 1810 0.32    -4.03225
+## Average_random_raters   ICC2k 4.4e-07 1   1  905 0.32    -4.04064
+## Average_fixed_raters    ICC3k 4.4e-07 1   1  905 0.32    -4.04064
+##                         upper bound
+## Single_raters_absolute         0.53
+## Single_random_raters           0.53
+## Single_fixed_raters            0.53
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qn6011-" class="section level4">
 <h4>qn6011 认为政府腐败问题有多严重</h4>
@@ -669,6 +1040,32 @@ summary(qn6011.aov)</code></pre>
 <pre><code>##                     Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## dispatch.Dispatch    1      0  0.2385   0.238  0.625
 ## Residuals         4122   4123  1.0002</code></pre>
+<pre class="r"><code>qn6011ICCDE &lt;- preprocessed2018[33] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qn6011ICCRE &lt;- preprocessed2018[33] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qn6011ICC &lt;- t(data.matrix(data.frame(qn6011ICCDE, qn6011ICCRE[1:906,])))
+ICC(qn6011ICC, alpha = 0.05) </code></pre>
+<pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
+<pre><code>## Call: ICC(x = qn6011ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type    ICC   F df1  df2     p lower bound
+## Single_raters_absolute   ICC1 0.0043 4.9   1 1810 0.027    -2.3e-05
+## Single_random_raters     ICC2 0.0043 4.9   1  905 0.027    -2.3e-05
+## Single_fixed_raters      ICC3 0.0043 4.9   1  905 0.027    -2.5e-05
+## Average_raters_absolute ICC1k 0.7971 4.9   1 1810 0.027    -2.1e-02
+## Average_random_raters   ICC2k 0.7971 4.9   1  905 0.027    -2.1e-02
+## Average_fixed_raters    ICC3k 0.7971 4.9   1  905 0.027    -2.3e-02
+##                         upper bound
+## Single_raters_absolute         0.85
+## Single_random_raters           0.85
+## Single_fixed_raters            0.85
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qn6014-" class="section level4">
 <h4>qn6014 我国就业问题有多严重</h4>
@@ -677,6 +1074,34 @@ summary(qn6014.aov)</code></pre>
 <pre><code>##                     Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## dispatch.Dispatch    1      2  2.3390    2.34  0.126
 ## Residuals         4122   4121  0.9997</code></pre>
+<pre class="r"><code>qn6014ICCDE &lt;- preprocessed2018[34] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qn6014ICCRE &lt;- preprocessed2018[34] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qn6014ICC &lt;- t(data.matrix(data.frame(qn6014ICCDE, qn6014ICCRE[1:906,])))
+ICC(qn6014ICC, alpha = 0.05) </code></pre>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
+## control$checkConv, : Model failed to converge with max|grad| = 0.00787217
+## (tol = 0.002, component 1)</code></pre>
+<pre><code>## Call: ICC(x = qn6014ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type    ICC   F df1  df2     p lower bound
+## Single_raters_absolute   ICC1 0.0042 4.8   1 1810 0.028    -4.7e-05
+## Single_random_raters     ICC2 0.0042 4.9   1  905 0.027    -3.3e-05
+## Single_fixed_raters      ICC3 0.0043 4.9   1  905 0.027    -3.5e-05
+## Average_raters_absolute ICC1k 0.7924 4.8   1 1810 0.028    -4.5e-02
+## Average_random_raters   ICC2k 0.7929 4.9   1  905 0.027    -3.1e-02
+## Average_fixed_raters    ICC3k 0.7950 4.9   1  905 0.027    -3.3e-02
+##                         upper bound
+## Single_raters_absolute         0.84
+## Single_random_raters           0.84
+## Single_fixed_raters            0.85
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qn6018-" class="section level4">
 <h4>qn6018 我国社会保障问题有多严重</h4>
@@ -685,6 +1110,31 @@ summary(qn6018.aov)</code></pre>
 <pre><code>##                     Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## dispatch.Dispatch    1      0  0.1466   0.147  0.702
 ## Residuals         4122   4123  1.0002</code></pre>
+<pre class="r"><code>qn6018ICCDE &lt;- preprocessed2018[35] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qn6018ICCRE &lt;- preprocessed2018[35] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qn6018ICC &lt;- t(data.matrix(data.frame(qn6018ICCDE, qn6018ICCRE[1:906,])))
+ICC(qn6018ICC, alpha = 0.05) </code></pre>
+<pre><code>## Call: ICC(x = qn6018ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type    ICC   F df1  df2     p lower bound
+## Single_raters_absolute   ICC1 0.0022 3.0   1 1810 0.085    -0.00045
+## Single_random_raters     ICC2 0.0022 3.1   1  905 0.078    -0.00040
+## Single_fixed_raters      ICC3 0.0023 3.1   1  905 0.078    -0.00042
+## Average_raters_absolute ICC1k 0.6636 3.0   1 1810 0.085    -0.69268
+## Average_random_raters   ICC2k 0.6684 3.1   1  905 0.078    -0.57882
+## Average_fixed_raters    ICC3k 0.6780 3.1   1  905 0.078    -0.62312
+##                         upper bound
+## Single_raters_absolute         0.77
+## Single_random_raters           0.77
+## Single_fixed_raters            0.78
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qu802-" class="section level4">
 <h4>qu802 互联网对您获取信息的重要性</h4>
@@ -695,6 +1145,32 @@ summary(qu802.aov)</code></pre>
 ## Residuals         4122   4115   0.998                   
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre class="r"><code>qu802ICCDE &lt;- preprocessed2018[36] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qu802ICCRE &lt;- preprocessed2018[36] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qu802ICC &lt;- t(data.matrix(data.frame(qu802ICCDE, qu802ICCRE[1:906,])))
+ICC(qu802ICC, alpha = 0.05) </code></pre>
+<pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
+<pre><code>## Call: ICC(x = qu802ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type    ICC   F df1  df2     p lower bound
+## Single_raters_absolute   ICC1 0.0064 6.8   1 1810 0.009     0.00040
+## Single_random_raters     ICC2 0.0064 6.8   1  905 0.009     0.00040
+## Single_fixed_raters      ICC3 0.0064 6.8   1  905 0.009     0.00039
+## Average_raters_absolute ICC1k 0.8539 6.8   1 1810 0.009     0.26466
+## Average_random_raters   ICC2k 0.8539 6.8   1  905 0.009     0.26463
+## Average_fixed_raters    ICC3k 0.8539 6.8   1  905 0.009     0.26343
+##                         upper bound
+## Single_raters_absolute         0.88
+## Single_random_raters           0.88
+## Single_fixed_raters            0.88
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qu702-" class="section level4">
 <h4>qu702 使用互联网工作的频率</h4>
@@ -705,6 +1181,31 @@ summary(qu702.aov)</code></pre>
 ## Residuals         4122   4112   0.998                     
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre class="r"><code>qu702ICCDE &lt;- preprocessed2018[37] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qu702ICCRE &lt;- preprocessed2018[37] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qu702ICC &lt;- t(data.matrix(data.frame(qu702ICCDE, qu702ICCRE[1:906,])))
+ICC(qu702ICC, alpha = 0.05) </code></pre>
+<pre><code>## Call: ICC(x = qu702ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type    ICC   F df1  df2      p lower bound
+## Single_raters_absolute   ICC1 0.0091 9.3   1 1810 0.0024     0.00093
+## Single_random_raters     ICC2 0.0091 9.3   1  905 0.0023     0.00094
+## Single_fixed_raters      ICC3 0.0091 9.3   1  905 0.0023     0.00094
+## Average_raters_absolute ICC1k 0.8922 9.3   1 1810 0.0024     0.45765
+## Average_random_raters   ICC2k 0.8923 9.3   1  905 0.0023     0.45886
+## Average_fixed_raters    ICC3k 0.8927 9.3   1  905 0.0023     0.45901
+##                         upper bound
+## Single_raters_absolute         0.91
+## Single_random_raters           0.91
+## Single_fixed_raters            0.91
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="w01-" class="section level4">
 <h4>w01 最高学历</h4>
@@ -715,6 +1216,32 @@ summary(w01.aov)</code></pre>
 ## Residuals         4122   4084    0.99                     
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre class="r"><code>w01ICCDE &lt;- preprocessed2018[38] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+w01ICCRE &lt;- preprocessed2018[38] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+w01ICC &lt;- t(data.matrix(data.frame(w01ICCDE, w01ICCRE[1:906,])))
+ICC(w01ICC, alpha = 0.05) </code></pre>
+<pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
+<pre><code>## Call: ICC(x = w01ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type   ICC  F df1  df2       p lower bound
+## Single_raters_absolute   ICC1 0.056 55   1 1810 1.9e-13       0.011
+## Single_random_raters     ICC2 0.056 55   1  905 2.9e-13       0.011
+## Single_fixed_raters      ICC3 0.056 55   1  905 2.9e-13       0.011
+## Average_raters_absolute ICC1k 0.982 55   1 1810 1.9e-13       0.908
+## Average_random_raters   ICC2k 0.982 55   1  905 2.9e-13       0.908
+## Average_fixed_raters    ICC3k 0.982 55   1  905 2.9e-13       0.908
+##                         upper bound
+## Single_raters_absolute         0.98
+## Single_random_raters           0.98
+## Single_fixed_raters            0.98
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qn201-" class="section level4">
 <h4>qn201 通过电视台了解政治</h4>
@@ -723,6 +1250,32 @@ summary(qn201.aov)</code></pre>
 <pre><code>##                     Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## dispatch.Dispatch    1      1    0.69    0.69  0.406
 ## Residuals         4122   4122    1.00</code></pre>
+<pre class="r"><code>qn201ICCDE &lt;- preprocessed2018[39] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qn201ICCRE &lt;- preprocessed2018[39] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qn201ICC &lt;- t(data.matrix(data.frame(qn201ICCDE, qn201ICCRE[1:906,])))
+ICC(qn201ICC, alpha = 0.05) </code></pre>
+<pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
+<pre><code>## Call: ICC(x = qn201ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type     ICC   F df1  df2    p lower bound
+## Single_raters_absolute   ICC1 0.00018 1.2   1 1810 0.28    -0.00085
+## Single_random_raters     ICC2 0.00018 1.2   1  905 0.28    -0.00085
+## Single_fixed_raters      ICC3 0.00018 1.2   1  905 0.28    -0.00085
+## Average_raters_absolute ICC1k 0.13920 1.2   1 1810 0.28    -3.33176
+## Average_random_raters   ICC2k 0.13920 1.2   1  905 0.28    -3.33711
+## Average_fixed_raters    ICC3k 0.13920 1.2   1  905 0.28    -3.33899
+##                         upper bound
+## Single_raters_absolute         0.57
+## Single_random_raters           0.57
+## Single_fixed_raters            0.57
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 <div id="qn202-" class="section level4">
 <h4>qn202 通过电视台了解政治</h4>
@@ -733,6 +1286,32 @@ summary(qn202.aov)</code></pre>
 ## Residuals         4122   4117   0.999                 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre class="r"><code>qn202ICCDE &lt;- preprocessed2018[40] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qn202ICCRE &lt;- preprocessed2018[40] %&gt;%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qn202ICC &lt;- t(data.matrix(data.frame(qn202ICCDE, qn202ICCRE[1:906,])))
+ICC(qn202ICC, alpha = 0.05) </code></pre>
+<pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
+<pre><code>## Call: ICC(x = qn202ICC, alpha = 0.05)
+## 
+## Intraclass correlation coefficients 
+##                          type    ICC F df1  df2      p lower bound
+## Single_raters_absolute   ICC1 0.0087 9   1 1810 0.0027     0.00087
+## Single_random_raters     ICC2 0.0087 9   1  905 0.0028     0.00087
+## Single_fixed_raters      ICC3 0.0087 9   1  905 0.0028     0.00087
+## Average_raters_absolute ICC1k 0.8888 9   1 1810 0.0027     0.44057
+## Average_random_raters   ICC2k 0.8888 9   1  905 0.0028     0.44056
+## Average_fixed_raters    ICC3k 0.8888 9   1  905 0.0028     0.43964
+##                         upper bound
+## Single_raters_absolute         0.91
+## Single_random_raters           0.91
+## Single_fixed_raters            0.91
+## Average_raters_absolute        1.00
+## Average_random_raters          1.00
+## Average_fixed_raters           1.00
+## 
+##  Number of subjects = 2     Number of Judges =  906</code></pre>
 </div>
 </div>
 </div>

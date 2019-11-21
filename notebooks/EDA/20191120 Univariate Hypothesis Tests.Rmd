@@ -16,14 +16,15 @@ library(ggplot2)
 library(dplyr)
 library(statsr)
 library(gmodels)
+library(psych)
+library(irr)
 ```
 
 ### Load Data
 
 
 ```{r dataimport}
-library(haven)
-preprocessed2018 <- read_dta("D:/CFPS Research-20191101T212903Z-001/dispatchedworkersCFPS/data/preprocessed2018.dta")
+preprocessed2018 = read.csv("/Users/tylerzhang/Desktop/CFPS Research-20191101T212903Z-001/dispatchedworkersCFPS/data/preprocessed2018.csv")
 ```
 
 
@@ -36,13 +37,310 @@ Check if the continuous variable is different across DE and RE significantly wit
 Test the strength of such association with `intra-class correlation`.
 
 
-Hypothesis: The means of continuous variable for DE and RE are the same. 
+Null Hypothesis: The means of continuous variable for DE and RE are the same. 
 
-```{r ageANOVA}
-age.aov <- aov(age ~ dispatch_Dispatch, data = preprocessed2018)
+
+#### ANOVA Results
+
+
+| Num | var | label | F value | p value |
+| :-- | :--:| :---: | :-----: | ------: |
+| 1   | age               | 年龄                     | 0.039 |  0.842 |
+| 2   | qg12              | 工作总收入               | 29.53 | 5.83e-08 *** |
+| 3   | qg1001            | 月度公积金数额           | 33.53 | 7.55e-09 *** |
+| 4   | qg901             | 个人每月缴纳多少钱的保险 | 18.86 | 1.44e-05 *** |
+| 5   | qg702             | 过去一年的福利金额       | 2.08  |  0.149 |
+| 6   | qg401             | 工作收入满意度           | 0.667 | 0.414 |
+| 7   | qg406             | 工作总体满意度           | 0.712 | 0.399 |
+| 8   | qg15              | 过去12个月是否升迁       | 0.322 |  0.57 |
+| 9   | qn10025           | 对政府官员信任程度       | 2.609 | 0.106 |
+| 10  | qn6011            | 认为政府腐败问题有多严重 | 0.238 | 0.625 |
+| 11  | qn6014            | 我国就业问题有多严重     | 2.34  | 0.126 |
+| 12  | qn6018            | 我国社会保障问题有多严重 | 0.147 | 0.702|
+| 13  | qu802             |互联网对您获取信息的重要性| 8.103 | 0.00444 ** |
+| 14  | qu702             | 使用互联网工作的频率     | 11.27 | 0.000797 *** |
+| 15  | w01               | 最高学历                 | 39.87 | 3.01e-10 ***|
+| 16  | qn201             | 通过电视台了解政治       | 0.69  |  0.406 |
+| 17  | qn202             | 通过网络了解政治         | 5.764 | 0.0164 * |
+
+
+
+#### Intraclass Correlation Results
+
+| Num | var | label | ICC value | 95% CI of ICC |
+| :-- | :--:| :---: | :-----: | ------: |
+| 1   | age               | 年龄                     | 0.001088946  | [-0.0006684184, 0.6906002] |
+| 2   | qg12              | 工作总收入               | 0.01500468   | [0.002138099, 0.9432771] |
+| 3   | qg1001            | 月度公积金数额           | 0.05798476   | [0.01122362, 0.9845628] |
+| 4   | qg901             | 个人每月缴纳多少钱的保险 | 0.03378815	  | [0.006033954, 0.9734842] |
+| 5   | qg702             | 过去一年的福利金额       | 0.004679272  |  [0.006033954,	0.9734842] |
+| 6   | qg401             | 工作收入满意度           | 0.006341793  | [0.0004043133,	0.8836294] |
+| 7   | qg406             | 工作总体满意度           | 0.003071539	| [-0.0002393089, 0.8083172] |
+| 8   | qg15              | 过去12个月是否升迁       | 0.0000000000 |  [-0.0008769064, 0.5263395] |
+| 9   | qn10025           | 对政府官员信任程度       | 4.811808e-10 | [-0.0008855657, 0.5287866] |
+| 10  | qn6011            | 认为政府腐败问题有多严重 | 0.004317418  | [-2.282288e-05, 0.8470133] |
+| 11  | qn6014            | 我国就业问题有多严重     | 0.004208596  | [-3.327471e-05, 0.8440032] |
+| 12  | qn6018            | 我国社会保障问题有多严重 | 0.002219837	| [-0.0004048158, 0.7695461] |
+| 13  | qu802             |互联网对您获取信息的重要性| 0.006408379	| [0.0003970454,	0.8849001] |
+| 14  | qu702             | 使用互联网工作的频率     | 0.009059340  | [0.0009350596, 0.9124673] |
+| 15  | w01               | 最高学历                 | 0.05614695   | [0.01081839,	0.9840456]|
+| 16  | qn201             | 通过电视台了解政治       | 0.0001784571 | [-0.0008499844	0.5659573] |
+| 17  | qn202             | 通过网络了解政治         | 0.008747656  | [0.0008684445, 0.9099582] |
+
+#### age
+
+```{r ageANOVA&ICC}
+age.aov <- aov(age ~ dispatch.Dispatch, data = preprocessed2018)
 summary(age.aov)
+
+ageICCDE <- preprocessed2018[24] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+ageICCRE <- preprocessed2018[24] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+ageICC <- t(data.matrix(data.frame(ageICCDE, ageICCRE[1:906,])))
+ICC(ageICC, alpha = 0.05) 
+ICC(ageICC)
+# because each of the two categories (dispatch.Dispatch == 0, dispatch.Dispatch == 1) there are multiple different ratings (age), we will use ICC2 to measure the Intraclass Correlation Coefficient
+# ICC1: Each target is rated by a different judge and the judges are selected at random. 
+# ICC2: A random sample of k judges rate each target.
+# ICC3: A fixed set of k judges rate each target.
 ```
 
 
+#### qg12工作总收入
+
+```{r qg12ANOVA}
+qg12.aov <- aov(qg12 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qg12.aov)
+
+qg12ICCDE <- preprocessed2018[25] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg12ICCRE <- preprocessed2018[25] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg12ICC <- t(data.matrix(data.frame(qg12ICCDE, qg12ICCRE[1:906,])))
+ICC(qg12ICC, alpha = 0.05) 
+```
 
 
+#### qg1001月度公积金数额
+
+```{r qg1001ANOVA}
+qg1001.aov <- aov(qg1001 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qg1001.aov)
+
+qg1001ICCDE <- preprocessed2018[26] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg1001ICCRE <- preprocessed2018[26] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg1001ICC <- t(data.matrix(data.frame(qg1001ICCDE, qg1001ICCRE[1:906,])))
+ICC(qg1001ICC, alpha = 0.05) 
+```
+
+
+#### qg901个人每月缴纳多少钱的保险
+
+```{r qg901ANOVA}
+qg901.aov <- aov(qg901 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qg901.aov)
+
+qg901ICCDE <- preprocessed2018[27] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg901ICCRE <- preprocessed2018[27] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg901ICC <- t(data.matrix(data.frame(qg901ICCDE, qg901ICCRE[1:906,])))
+ICC(qg901ICC, alpha = 0.05) 
+```
+
+
+#### qg702	过去一年的福利金额
+
+```{r qg702ANOVA}
+qg702.aov <- aov(qg702 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qg702.aov)
+
+qg702ICCDE <- preprocessed2018[28] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg702ICCRE <- preprocessed2018[28] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg702ICC <- t(data.matrix(data.frame(qg702ICCDE, qg702ICCRE[1:906,])))
+ICC(qg702ICC, alpha = 0.05) 
+```
+
+
+#### qg401	工作收入满意度
+
+```{r qg401ANOVA}
+qg401.aov <- aov(qg401 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qg401.aov)
+
+qg401ICCDE <- preprocessed2018[29] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg401ICCRE <- preprocessed2018[29] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg401ICC <- t(data.matrix(data.frame(qg401ICCDE, qg401ICCRE[1:906,])))
+ICC(qg401ICC, alpha = 0.05) 
+```
+
+
+#### qg406	工作总体满意度	
+
+```{r qg406ANOVA}
+qg406.aov <- aov(qg406 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qg406.aov)
+
+qg406ICCDE <- preprocessed2018[30] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg406ICCRE <- preprocessed2018[30] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg406ICC <- t(data.matrix(data.frame(qg406ICCDE, qg406ICCRE[1:906,])))
+ICC(qg406ICC, alpha = 0.05) 
+```
+
+
+#### qg15	过去12个月是否升迁
+
+```{r qg15ANOVA}
+qg15.aov <- aov(qg15 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qg15.aov)
+
+qg15ICCDE <- preprocessed2018[31] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qg15ICCRE <- preprocessed2018[31] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qg15ICC <- t(data.matrix(data.frame(qg15ICCDE, qg15ICCRE[1:906,])))
+ICC(qg15ICC, alpha = 0.05) 
+```
+
+#### qn10025	对政府官员信任程度
+
+```{r qn10025ANOVA}
+qn10025.aov <- aov(qn10025 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qn10025.aov)
+
+qn10025ICCDE <- preprocessed2018[32] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qn10025ICCRE <- preprocessed2018[32] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qn10025ICC <- t(data.matrix(data.frame(qn10025ICCDE, qn10025ICCRE[1:906,])))
+ICC(qn10025ICC, alpha = 0.05) 
+```
+
+
+#### qn6011	认为政府腐败问题有多严重
+
+```{r qn6011ANOVA}
+qn6011.aov <- aov(qn6011 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qn6011.aov)
+
+qn6011ICCDE <- preprocessed2018[33] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qn6011ICCRE <- preprocessed2018[33] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qn6011ICC <- t(data.matrix(data.frame(qn6011ICCDE, qn6011ICCRE[1:906,])))
+ICC(qn6011ICC, alpha = 0.05) 
+```
+
+
+#### qn6014	我国就业问题有多严重
+
+```{r qn6014ANOVA}
+qn6014.aov <- aov(qn6014 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qn6014.aov)
+
+qn6014ICCDE <- preprocessed2018[34] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qn6014ICCRE <- preprocessed2018[34] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qn6014ICC <- t(data.matrix(data.frame(qn6014ICCDE, qn6014ICCRE[1:906,])))
+ICC(qn6014ICC, alpha = 0.05) 
+```
+
+
+#### qn6018	我国社会保障问题有多严重
+
+```{r qn6018ANOVA}
+qn6018.aov <- aov(qn6018 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qn6018.aov)
+
+qn6018ICCDE <- preprocessed2018[35] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qn6018ICCRE <- preprocessed2018[35] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qn6018ICC <- t(data.matrix(data.frame(qn6018ICCDE, qn6018ICCRE[1:906,])))
+ICC(qn6018ICC, alpha = 0.05) 
+```
+
+
+#### qu802	互联网对您获取信息的重要性
+
+```{r qu802ANOVA}
+qu802.aov <- aov(qu802 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qu802.aov)
+
+qu802ICCDE <- preprocessed2018[36] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qu802ICCRE <- preprocessed2018[36] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qu802ICC <- t(data.matrix(data.frame(qu802ICCDE, qu802ICCRE[1:906,])))
+ICC(qu802ICC, alpha = 0.05) 
+```
+
+
+#### qu702	使用互联网工作的频率
+
+```{r qu702ANOVA}
+qu702.aov <- aov(qu702 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qu702.aov)
+
+qu702ICCDE <- preprocessed2018[37] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qu702ICCRE <- preprocessed2018[37] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qu702ICC <- t(data.matrix(data.frame(qu702ICCDE, qu702ICCRE[1:906,])))
+ICC(qu702ICC, alpha = 0.05) 
+```
+
+
+#### w01	最高学历
+
+```{r w01ANOVA}
+w01.aov <- aov(w01 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(w01.aov)
+
+w01ICCDE <- preprocessed2018[38] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+w01ICCRE <- preprocessed2018[38] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+w01ICC <- t(data.matrix(data.frame(w01ICCDE, w01ICCRE[1:906,])))
+ICC(w01ICC, alpha = 0.05) 
+```
+
+
+#### qn201	通过电视台了解政治
+
+```{r qn201ANOVA}
+qn201.aov <- aov(qn201_b_1 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qn201.aov)
+
+qn201ICCDE <- preprocessed2018[39] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qn201ICCRE <- preprocessed2018[39] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qn201ICC <- t(data.matrix(data.frame(qn201ICCDE, qn201ICCRE[1:906,])))
+ICC(qn201ICC, alpha = 0.05) 
+```
+
+
+#### qn202	通过电视台了解政治
+
+```{r qn202ANOVA}
+qn202.aov <- aov(qn202 ~ dispatch.Dispatch, data = preprocessed2018)
+summary(qn202.aov)
+
+qn202ICCDE <- preprocessed2018[40] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 1)
+qn202ICCRE <- preprocessed2018[40] %>%
+  filter(preprocessed2018$dispatch.Dispatch == 0)
+qn202ICC <- t(data.matrix(data.frame(qn202ICCDE, qn202ICCRE[1:906,])))
+ICC(qn202ICC, alpha = 0.05) 
+```
