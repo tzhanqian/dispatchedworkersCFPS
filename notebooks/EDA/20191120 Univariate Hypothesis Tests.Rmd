@@ -1,0 +1,48 @@
+---
+title: "20191120 Univariate Hypothesis Tests"
+author: "Hanqian Zhang"
+date: "2019/11/20"
+output: html_document
+---
+
+
+## Setup
+
+
+### Load Packages
+
+```{r load-packages}
+library(ggplot2)
+library(dplyr)
+library(statsr)
+library(gmodels)
+```
+
+### Load Data
+
+
+```{r dataimport}
+library(haven)
+preprocessed2018 <- read_dta("D:/CFPS Research-20191101T212903Z-001/dispatchedworkersCFPS/data/preprocessed2018.dta")
+```
+
+
+### Continuous Variables
+
+
+Check if the continuous variable is different across DE and RE significantly with `ANOVA`
+
+
+Test the strength of such association with `intra-class correlation`.
+
+
+Hypothesis: The means of continuous variable for DE and RE are the same. 
+
+```{r ageANOVA}
+age.aov <- aov(age ~ dispatch_Dispatch, data = preprocessed2018)
+summary(age.aov)
+```
+
+
+
+
