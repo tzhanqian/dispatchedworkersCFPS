@@ -418,6 +418,15 @@ library(psych)</code></pre>
 ##     %+%, alpha</code></pre>
 <pre class="r"><code>library(irr)</code></pre>
 <pre><code>## Loading required package: lpSolve</code></pre>
+<pre class="r"><code>library(DescTools)</code></pre>
+<pre><code>## Registered S3 method overwritten by 'DescTools':
+##   method         from 
+##   reorder.factor gdata</code></pre>
+<pre><code>## 
+## Attaching package: 'DescTools'</code></pre>
+<pre><code>## The following objects are masked from 'package:psych':
+## 
+##     AUC, ICC, SD</code></pre>
 </div>
 <div id="load-data" class="section level3">
 <h3>Load Data</h3>
@@ -710,30 +719,9 @@ summary(age.aov)</code></pre>
 ageICCRE &lt;- preprocessed2018[24] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 ageICC &lt;- t(data.matrix(data.frame(ageICCDE, ageICCRE[1:906,])))
-ICC(ageICC, alpha = 0.05) </code></pre>
+psych::ICC(ageICC, alpha = 0.05)</code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
-<pre><code>## Call: ICC(x = ageICC, alpha = 0.05)
-## 
-## Intraclass correlation coefficients 
-##                          type    ICC F df1  df2    p lower bound
-## Single_raters_absolute   ICC1 0.0011 2   1 1810 0.16    -0.00067
-## Single_random_raters     ICC2 0.0011 2   1  905 0.16    -0.00067
-## Single_fixed_raters      ICC3 0.0011 2   1  905 0.16    -0.00067
-## Average_raters_absolute ICC1k 0.4969 2   1 1810 0.16    -1.53175
-## Average_random_raters   ICC2k 0.4969 2   1  905 0.16    -1.53282
-## Average_fixed_raters    ICC3k 0.4969 2   1  905 0.16    -1.53597
-##                         upper bound
-## Single_raters_absolute         0.69
-## Single_random_raters           0.69
-## Single_fixed_raters            0.69
-## Average_raters_absolute        1.00
-## Average_random_raters          1.00
-## Average_fixed_raters           1.00
-## 
-##  Number of subjects = 2     Number of Judges =  906</code></pre>
-<pre class="r"><code>ICC(ageICC)</code></pre>
-<pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
-<pre><code>## Call: ICC(x = ageICC)
+<pre><code>## Call: psych::ICC(x = ageICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type    ICC F df1  df2    p lower bound
@@ -771,9 +759,9 @@ summary(qg12.aov)</code></pre>
 qg12ICCRE &lt;- preprocessed2018[25] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg12ICC &lt;- t(data.matrix(data.frame(qg12ICCDE, qg12ICCRE[1:906,])))
-ICC(qg12ICC, alpha = 0.05) </code></pre>
+psych::ICC(qg12ICC, alpha = 0.05) </code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
-<pre><code>## Call: ICC(x = qg12ICC, alpha = 0.05)
+<pre><code>## Call: psych::ICC(x = qg12ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type   ICC  F df1  df2       p lower bound
@@ -807,8 +795,8 @@ summary(qg1001.aov)</code></pre>
 qg1001ICCRE &lt;- preprocessed2018[26] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg1001ICC &lt;- t(data.matrix(data.frame(qg1001ICCDE, qg1001ICCRE[1:906,])))
-ICC(qg1001ICC, alpha = 0.05) </code></pre>
-<pre><code>## Call: ICC(x = qg1001ICC, alpha = 0.05)
+psych::ICC(qg1001ICC, alpha = 0.05) </code></pre>
+<pre><code>## Call: psych::ICC(x = qg1001ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type   ICC  F df1  df2       p lower bound
@@ -842,11 +830,11 @@ summary(qg901.aov)</code></pre>
 qg901ICCRE &lt;- preprocessed2018[27] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg901ICC &lt;- t(data.matrix(data.frame(qg901ICCDE, qg901ICCRE[1:906,])))
-ICC(qg901ICC, alpha = 0.05) </code></pre>
+psych::ICC(qg901ICC, alpha = 0.05) </code></pre>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
 ## control$checkConv, : Model failed to converge with max|grad| = 0.00345225
 ## (tol = 0.002, component 1)</code></pre>
-<pre><code>## Call: ICC(x = qg901ICC, alpha = 0.05)
+<pre><code>## Call: psych::ICC(x = qg901ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type   ICC  F df1  df2       p lower bound
@@ -878,8 +866,8 @@ summary(qg702.aov)</code></pre>
 qg702ICCRE &lt;- preprocessed2018[28] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg702ICC &lt;- t(data.matrix(data.frame(qg702ICCDE, qg702ICCRE[1:906,])))
-ICC(qg702ICC, alpha = 0.05) </code></pre>
-<pre><code>## Call: ICC(x = qg702ICC, alpha = 0.05)
+psych::ICC(qg702ICC, alpha = 0.05) </code></pre>
+<pre><code>## Call: psych::ICC(x = qg702ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type    ICC   F df1  df2     p lower bound
@@ -911,8 +899,8 @@ summary(qg401.aov)</code></pre>
 qg401ICCRE &lt;- preprocessed2018[29] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg401ICC &lt;- t(data.matrix(data.frame(qg401ICCDE, qg401ICCRE[1:906,])))
-ICC(qg401ICC, alpha = 0.05) </code></pre>
-<pre><code>## Call: ICC(x = qg401ICC, alpha = 0.05)
+psych::ICC(qg401ICC, alpha = 0.05) </code></pre>
+<pre><code>## Call: psych::ICC(x = qg401ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type    ICC   F df1  df2      p lower bound
@@ -944,8 +932,8 @@ summary(qg406.aov)</code></pre>
 qg406ICCRE &lt;- preprocessed2018[30] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg406ICC &lt;- t(data.matrix(data.frame(qg406ICCDE, qg406ICCRE[1:906,])))
-ICC(qg406ICC, alpha = 0.05) </code></pre>
-<pre><code>## Call: ICC(x = qg406ICC, alpha = 0.05)
+psych::ICC(qg406ICC, alpha = 0.05) </code></pre>
+<pre><code>## Call: psych::ICC(x = qg406ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type    ICC   F df1  df2     p lower bound
@@ -977,9 +965,9 @@ summary(qg15.aov)</code></pre>
 qg15ICCRE &lt;- preprocessed2018[31] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg15ICC &lt;- t(data.matrix(data.frame(qg15ICCDE, qg15ICCRE[1:906,])))
-ICC(qg15ICC, alpha = 0.05) </code></pre>
+psych::ICC(qg15ICC, alpha = 0.05) </code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
-<pre><code>## Call: ICC(x = qg15ICC, alpha = 0.05)
+<pre><code>## Call: psych::ICC(x = qg15ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type      ICC    F df1  df2    p lower bound
@@ -1011,9 +999,9 @@ summary(qn10025.aov)</code></pre>
 qn10025ICCRE &lt;- preprocessed2018[32] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qn10025ICC &lt;- t(data.matrix(data.frame(qn10025ICCDE, qn10025ICCRE[1:906,])))
-ICC(qn10025ICC, alpha = 0.05) </code></pre>
+psych::ICC(qn10025ICC, alpha = 0.05) </code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
-<pre><code>## Call: ICC(x = qn10025ICC, alpha = 0.05)
+<pre><code>## Call: psych::ICC(x = qn10025ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type     ICC F df1  df2    p lower bound
@@ -1045,9 +1033,9 @@ summary(qn6011.aov)</code></pre>
 qn6011ICCRE &lt;- preprocessed2018[33] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qn6011ICC &lt;- t(data.matrix(data.frame(qn6011ICCDE, qn6011ICCRE[1:906,])))
-ICC(qn6011ICC, alpha = 0.05) </code></pre>
+psych::ICC(qn6011ICC, alpha = 0.05) </code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
-<pre><code>## Call: ICC(x = qn6011ICC, alpha = 0.05)
+<pre><code>## Call: psych::ICC(x = qn6011ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type    ICC   F df1  df2     p lower bound
@@ -1079,11 +1067,11 @@ summary(qn6014.aov)</code></pre>
 qn6014ICCRE &lt;- preprocessed2018[34] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qn6014ICC &lt;- t(data.matrix(data.frame(qn6014ICCDE, qn6014ICCRE[1:906,])))
-ICC(qn6014ICC, alpha = 0.05) </code></pre>
+psych::ICC(qn6014ICC, alpha = 0.05) </code></pre>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
 ## control$checkConv, : Model failed to converge with max|grad| = 0.00787217
 ## (tol = 0.002, component 1)</code></pre>
-<pre><code>## Call: ICC(x = qn6014ICC, alpha = 0.05)
+<pre><code>## Call: psych::ICC(x = qn6014ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type    ICC   F df1  df2     p lower bound
@@ -1115,8 +1103,8 @@ summary(qn6018.aov)</code></pre>
 qn6018ICCRE &lt;- preprocessed2018[35] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qn6018ICC &lt;- t(data.matrix(data.frame(qn6018ICCDE, qn6018ICCRE[1:906,])))
-ICC(qn6018ICC, alpha = 0.05) </code></pre>
-<pre><code>## Call: ICC(x = qn6018ICC, alpha = 0.05)
+psych::ICC(qn6018ICC, alpha = 0.05) </code></pre>
+<pre><code>## Call: psych::ICC(x = qn6018ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type    ICC   F df1  df2     p lower bound
@@ -1150,9 +1138,9 @@ summary(qu802.aov)</code></pre>
 qu802ICCRE &lt;- preprocessed2018[36] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qu802ICC &lt;- t(data.matrix(data.frame(qu802ICCDE, qu802ICCRE[1:906,])))
-ICC(qu802ICC, alpha = 0.05) </code></pre>
+psych::ICC(qu802ICC, alpha = 0.05) </code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
-<pre><code>## Call: ICC(x = qu802ICC, alpha = 0.05)
+<pre><code>## Call: psych::ICC(x = qu802ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type    ICC   F df1  df2     p lower bound
@@ -1186,8 +1174,8 @@ summary(qu702.aov)</code></pre>
 qu702ICCRE &lt;- preprocessed2018[37] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qu702ICC &lt;- t(data.matrix(data.frame(qu702ICCDE, qu702ICCRE[1:906,])))
-ICC(qu702ICC, alpha = 0.05) </code></pre>
-<pre><code>## Call: ICC(x = qu702ICC, alpha = 0.05)
+psych::ICC(qu702ICC, alpha = 0.05) </code></pre>
+<pre><code>## Call: psych::ICC(x = qu702ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type    ICC   F df1  df2      p lower bound
@@ -1221,9 +1209,9 @@ summary(w01.aov)</code></pre>
 w01ICCRE &lt;- preprocessed2018[38] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 w01ICC &lt;- t(data.matrix(data.frame(w01ICCDE, w01ICCRE[1:906,])))
-ICC(w01ICC, alpha = 0.05) </code></pre>
+psych::ICC(w01ICC, alpha = 0.05) </code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
-<pre><code>## Call: ICC(x = w01ICC, alpha = 0.05)
+<pre><code>## Call: psych::ICC(x = w01ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type   ICC  F df1  df2       p lower bound
@@ -1255,9 +1243,9 @@ summary(qn201.aov)</code></pre>
 qn201ICCRE &lt;- preprocessed2018[39] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qn201ICC &lt;- t(data.matrix(data.frame(qn201ICCDE, qn201ICCRE[1:906,])))
-ICC(qn201ICC, alpha = 0.05) </code></pre>
+psych::ICC(qn201ICC, alpha = 0.05) </code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
-<pre><code>## Call: ICC(x = qn201ICC, alpha = 0.05)
+<pre><code>## Call: psych::ICC(x = qn201ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type     ICC   F df1  df2    p lower bound
@@ -1291,9 +1279,9 @@ summary(qn202.aov)</code></pre>
 qn202ICCRE &lt;- preprocessed2018[40] %&gt;%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qn202ICC &lt;- t(data.matrix(data.frame(qn202ICCDE, qn202ICCRE[1:906,])))
-ICC(qn202ICC, alpha = 0.05) </code></pre>
+psych::ICC(qn202ICC, alpha = 0.05) </code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
-<pre><code>## Call: ICC(x = qn202ICC, alpha = 0.05)
+<pre><code>## Call: psych::ICC(x = qn202ICC, alpha = 0.05)
 ## 
 ## Intraclass correlation coefficients 
 ##                          type    ICC F df1  df2      p lower bound
@@ -1312,6 +1300,421 @@ ICC(qn202ICC, alpha = 0.05) </code></pre>
 ## Average_fixed_raters           1.00
 ## 
 ##  Number of subjects = 2     Number of Judges =  906</code></pre>
+</div>
+</div>
+<div id="categorical-variables" class="section level3">
+<h3>Categorical Variables</h3>
+<p>Check if the categorical variables are significantly different across DE and RE with <code>chi-squared test</code>, test the strength of such association with <code>Cramer's V</code></p>
+<p>Null hypothesis: There is no significant difference between DE and RE</p>
+<div id="results-from-chi-squared-tests-and-cramers-v" class="section level4">
+<h4>Results from Chi-Squared Tests and Cramer’s V</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Num</th>
+<th align="center">var</th>
+<th align="center">label</th>
+<th align="center">chi-sq’s p value</th>
+<th align="right">cramer’s v</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">3</td>
+<td align="center">gendermale</td>
+<td align="center">性别</td>
+<td align="center">0.07858</td>
+<td align="right">0.02798016</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">genderfemale</td>
+<td align="center">性别</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="center">qg10Yes</td>
+<td align="center">是否提供公积金</td>
+<td align="center">8.977e-05</td>
+<td align="right">0.06157909</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">qg10No</td>
+<td align="center">是否提供公积金</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">6</td>
+<td align="center">qn4003Yes</td>
+<td align="center">工会成员</td>
+<td align="center">0.0002616</td>
+<td align="right">0.05752974</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">qn4003No</td>
+<td align="center">工会成员</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">7</td>
+<td align="center">qea0未婚</td>
+<td align="center">当前婚姻状态</td>
+<td align="center">0.5423</td>
+<td align="right">0.02738961</td>
+</tr>
+<tr class="even">
+<td align="left">8</td>
+<td align="center">qea0在婚</td>
+<td align="center">当前婚姻状态</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">9</td>
+<td align="center">qea0同居</td>
+<td align="center">当前婚姻状态</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">10</td>
+<td align="center">qea0离婚</td>
+<td align="center">当前婚姻状态</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">qea0丧偶</td>
+<td align="center">当前婚姻状态</td>
+<td align="center">dropped</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">11</td>
+<td align="center">qp605公费治疗</td>
+<td align="center">您享有哪些医疗保险</td>
+<td align="center">0.001953</td>
+<td align="right">0.06780953</td>
+</tr>
+<tr class="odd">
+<td align="left">12</td>
+<td align="center">qp605城镇居民</td>
+<td align="center">您享有哪些医疗保险</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">13</td>
+<td align="center">qp605城镇治疗</td>
+<td align="center">您享有哪些医疗保险</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">14</td>
+<td align="center">qp605补充医疗</td>
+<td align="center">您享有哪些医疗保险</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">15</td>
+<td align="center">qp605新型农村</td>
+<td align="center">您享有哪些医疗保险</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">qp605一无所有</td>
+<td align="center">您享有哪些医疗保险</td>
+<td align="center">dropped</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">16</td>
+<td align="center">qu201Yes</td>
+<td align="center">是否移动上网</td>
+<td align="center">0.001746</td>
+<td align="right">0.04955543</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">qu201No</td>
+<td align="center">是否移动上网</td>
+<td align="center">dropped</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">17</td>
+<td align="center">qu202Yes</td>
+<td align="center">是否电脑上网</td>
+<td align="center">2.774e-07</td>
+<td align="right">0.08059742</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">qu202No</td>
+<td align="center">是否电脑上网</td>
+<td align="center">dropped</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">18</td>
+<td align="center">kwa2不喜爱学校</td>
+<td align="center">没升学的原因</td>
+<td align="center">0.002164</td>
+<td align="right">0.06372653</td>
+</tr>
+<tr class="odd">
+<td align="left">19</td>
+<td align="center">kwa2学业成绩</td>
+<td align="center">没升学的原因</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">20</td>
+<td align="center">kwa2身体健康</td>
+<td align="center">没升学的原因</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">21</td>
+<td align="center">kwa2经济困难</td>
+<td align="center">没升学的原因</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">kwa2其他</td>
+<td align="center">没升学的原因</td>
+<td align="center">dropped</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">22</td>
+<td align="center">qn203Yes</td>
+<td align="center">过去12个月是否在网上发表过与政治问题和国家大事相关的言论</td>
+<td align="center">0.4692</td>
+<td align="right">0.01308001</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">qn203No</td>
+<td align="center">过去12个月是否在网上发表过与政治问题和国家大事相关的言论</td>
+<td align="center">dropped</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">23</td>
+<td align="center">qn4001Yes</td>
+<td align="center">是否是党员</td>
+<td align="center">0.0206</td>
+<td align="right">0.03795618</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">qn4001No</td>
+<td align="center">是否是党员</td>
+<td align="center">dropped</td>
+<td align="right"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="gendermale-" class="section level4">
+<h4>gendermale 性别（男）</h4>
+<pre class="r"><code>genderMatrix &lt;- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$gendermale == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$gendermale == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$gendermale == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$gendermale == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(genderMatrix)</code></pre>
+<pre><code>## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  genderMatrix
+## X-squared = 3.094, df = 1, p-value = 0.07858</code></pre>
+<pre class="r"><code>CramerV(genderMatrix)</code></pre>
+<pre><code>## [1] 0.02798016</code></pre>
+</div>
+<div id="qg10yes-" class="section level4">
+<h4>qg10Yes 是否提供公积金（是）</h4>
+<pre class="r"><code>qg10YesMatrix &lt;- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qg10Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qg10Yes == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qg10Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qg10Yes == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(qg10YesMatrix)</code></pre>
+<pre><code>## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  qg10YesMatrix
+## X-squared = 15.341, df = 1, p-value = 8.977e-05</code></pre>
+<pre class="r"><code>CramerV(qg10YesMatrix)</code></pre>
+<pre><code>## [1] 0.06157909</code></pre>
+</div>
+<div id="qn4003yes-" class="section level4">
+<h4>qn4003Yes 工会成员（是）</h4>
+<pre class="r"><code>qn4003YesMatrix &lt;- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qn4003Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qn4003Yes == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qn4003Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qn4003Yes == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(qn4003YesMatrix)</code></pre>
+<pre><code>## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  qn4003YesMatrix
+## X-squared = 13.327, df = 1, p-value = 0.0002616</code></pre>
+<pre class="r"><code>CramerV(qn4003YesMatrix)</code></pre>
+<pre><code>## [1] 0.05752974</code></pre>
+</div>
+<div id="qea0-" class="section level4">
+<h4>qea0 当前婚姻状态</h4>
+<pre class="r"><code>qea0Matrix &lt;- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qea0同居 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qea0在婚 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qea0未婚 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qea0离婚 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qea0离婚 == 0 &amp; preprocessed2018$qea0同居 == 0 &amp; preprocessed2018$qea0未婚 == 0 &amp; preprocessed2018$qea0在婚 == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qea0同居 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qea0在婚 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qea0未婚 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qea0离婚 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qea0离婚 == 0 &amp; preprocessed2018$qea0同居 == 0 &amp; preprocessed2018$qea0未婚 == 0 &amp; preprocessed2018$qea0在婚 == 0))),
+                       ncol = 2)
+chisq.test(qea0Matrix)</code></pre>
+<pre><code>## Warning in chisq.test(qea0Matrix): Chi-squared approximation may be
+## incorrect</code></pre>
+<pre><code>## 
+##  Pearson's Chi-squared test
+## 
+## data:  qea0Matrix
+## X-squared = 3.0938, df = 4, p-value = 0.5423</code></pre>
+<pre class="r"><code>CramerV(qea0Matrix)</code></pre>
+<pre><code>## [1] 0.02738961</code></pre>
+</div>
+<div id="qp605-" class="section level4">
+<h4>qp605 您享有哪些医疗保险</h4>
+<pre class="r"><code>qp605Matrix &lt;- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qp605.公费治疗 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qp605.城镇居民 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qp605.城镇治疗 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qp605.新型农村 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qp605.补充医疗 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qp605.公费治疗 == 0 &amp; preprocessed2018$qp605.城镇居民 == 0 &amp; preprocessed2018$qp605.城镇治疗 == 0 &amp; preprocessed2018$qp605.新型农村 == 0 &amp; preprocessed2018$qp605.补充医疗 == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qp605.公费治疗 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qp605.城镇居民 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qp605.城镇治疗 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qp605.新型农村 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qp605.补充医疗 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qp605.公费治疗 == 0 &amp; preprocessed2018$qp605.城镇居民 == 0 &amp; preprocessed2018$qp605.城镇治疗 == 0 &amp; preprocessed2018$qp605.新型农村 == 0 &amp; preprocessed2018$qp605.补充医疗 == 0))),
+                       ncol = 2)
+chisq.test(qp605Matrix)</code></pre>
+<pre><code>## 
+##  Pearson's Chi-squared test
+## 
+## data:  qp605Matrix
+## X-squared = 18.963, df = 5, p-value = 0.001953</code></pre>
+<pre class="r"><code>CramerV(qp605Matrix)</code></pre>
+<pre><code>## [1] 0.06780953</code></pre>
+</div>
+<div id="qu201-" class="section level4">
+<h4>qu201 是否移动上网</h4>
+<pre class="r"><code>qu201YesMatrix &lt;- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qu201Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qu201Yes == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qu201Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qu201Yes == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(qu201YesMatrix)</code></pre>
+<pre><code>## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  qu201YesMatrix
+## X-squared = 9.7994, df = 1, p-value = 0.001746</code></pre>
+<pre class="r"><code>CramerV(qu201YesMatrix)</code></pre>
+<pre><code>## [1] 0.04955543</code></pre>
+</div>
+<div id="qu202-" class="section level4">
+<h4>qu202 是否电脑上网</h4>
+<pre class="r"><code>qu202YesMatrix &lt;- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qu202Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qu202Yes == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qu202Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qu202Yes == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(qu202YesMatrix)</code></pre>
+<pre><code>## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  qu202YesMatrix
+## X-squared = 26.401, df = 1, p-value = 2.774e-07</code></pre>
+<pre class="r"><code>CramerV(qu202YesMatrix)</code></pre>
+<pre><code>## [1] 0.08059742</code></pre>
+</div>
+<div id="kwa2-" class="section level4">
+<h4>kwa2 没升学的原因</h4>
+<pre class="r"><code>kwa2Matrix &lt;- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$kwa2_b_1学业成绩 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$kwa2_b_1身体健康 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$kwa2_b_1经济困难 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$kwa2_b_1不喜欢学校 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$kwa2_b_1学业成绩 == 0 &amp; preprocessed2018$kwa2_b_1身体健康 == 0 &amp; preprocessed2018$kwa2_b_1经济困难 == 0 &amp; preprocessed2018$kwa2_b_1不喜欢学校 == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$kwa2_b_1学业成绩 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$kwa2_b_1身体健康 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$kwa2_b_1经济困难 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$kwa2_b_1不喜欢学校 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$kwa2_b_1学业成绩 == 0 &amp; preprocessed2018$kwa2_b_1身体健康 == 0 &amp; preprocessed2018$kwa2_b_1经济困难 == 0 &amp; preprocessed2018$kwa2_b_1不喜欢学校 == 0))),
+                       ncol = 2)
+chisq.test(kwa2Matrix)</code></pre>
+<pre><code>## Warning in chisq.test(kwa2Matrix): Chi-squared approximation may be
+## incorrect</code></pre>
+<pre><code>## 
+##  Pearson's Chi-squared test
+## 
+## data:  kwa2Matrix
+## X-squared = 16.748, df = 4, p-value = 0.002164</code></pre>
+<pre class="r"><code>CramerV(kwa2Matrix)</code></pre>
+<pre><code>## [1] 0.06372653</code></pre>
+</div>
+<div id="qn203-12" class="section level4">
+<h4>qn203 过去12个月是否在网上发表过与政治问题和国家大事相关的言论</h4>
+<pre class="r"><code>qn203YesMatrix &lt;- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qn203Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qn203Yes == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qn203Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qn203Yes == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(qn203YesMatrix)</code></pre>
+<pre><code>## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  qn203YesMatrix
+## X-squared = 0.52386, df = 1, p-value = 0.4692</code></pre>
+<pre class="r"><code>CramerV(qn203YesMatrix)</code></pre>
+<pre><code>## [1] 0.01308001</code></pre>
+</div>
+<div id="qn4001-" class="section level4">
+<h4>qn4001 是否是党员</h4>
+<pre class="r"><code>qn4001YesMatrix &lt;- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qn4001Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 &amp; preprocessed2018$qn4001Yes == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qn4001Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 &amp; preprocessed2018$qn4001Yes == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(qn4001YesMatrix)</code></pre>
+<pre><code>## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  qn4001YesMatrix
+## X-squared = 5.3603, df = 1, p-value = 0.0206</code></pre>
+<pre class="r"><code>CramerV(qn4001YesMatrix)</code></pre>
+<pre><code>## [1] 0.03795618</code></pre>
 </div>
 </div>
 </div>

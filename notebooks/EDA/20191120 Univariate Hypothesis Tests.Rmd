@@ -18,6 +18,7 @@ library(statsr)
 library(gmodels)
 library(psych)
 library(irr)
+library(DescTools)
 ```
 
 ### Load Data
@@ -98,8 +99,7 @@ ageICCDE <- preprocessed2018[24] %>%
 ageICCRE <- preprocessed2018[24] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 ageICC <- t(data.matrix(data.frame(ageICCDE, ageICCRE[1:906,])))
-ICC(ageICC, alpha = 0.05) 
-ICC(ageICC)
+psych::ICC(ageICC, alpha = 0.05)
 # because each of the two categories (dispatch.Dispatch == 0, dispatch.Dispatch == 1) there are multiple different ratings (age), we will use ICC2 to measure the Intraclass Correlation Coefficient
 # ICC1: Each target is rated by a different judge and the judges are selected at random. 
 # ICC2: A random sample of k judges rate each target.
@@ -118,7 +118,7 @@ qg12ICCDE <- preprocessed2018[25] %>%
 qg12ICCRE <- preprocessed2018[25] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg12ICC <- t(data.matrix(data.frame(qg12ICCDE, qg12ICCRE[1:906,])))
-ICC(qg12ICC, alpha = 0.05) 
+psych::ICC(qg12ICC, alpha = 0.05) 
 ```
 
 
@@ -133,7 +133,7 @@ qg1001ICCDE <- preprocessed2018[26] %>%
 qg1001ICCRE <- preprocessed2018[26] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg1001ICC <- t(data.matrix(data.frame(qg1001ICCDE, qg1001ICCRE[1:906,])))
-ICC(qg1001ICC, alpha = 0.05) 
+psych::ICC(qg1001ICC, alpha = 0.05) 
 ```
 
 
@@ -148,7 +148,7 @@ qg901ICCDE <- preprocessed2018[27] %>%
 qg901ICCRE <- preprocessed2018[27] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg901ICC <- t(data.matrix(data.frame(qg901ICCDE, qg901ICCRE[1:906,])))
-ICC(qg901ICC, alpha = 0.05) 
+psych::ICC(qg901ICC, alpha = 0.05) 
 ```
 
 
@@ -163,7 +163,7 @@ qg702ICCDE <- preprocessed2018[28] %>%
 qg702ICCRE <- preprocessed2018[28] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg702ICC <- t(data.matrix(data.frame(qg702ICCDE, qg702ICCRE[1:906,])))
-ICC(qg702ICC, alpha = 0.05) 
+psych::ICC(qg702ICC, alpha = 0.05) 
 ```
 
 
@@ -178,7 +178,7 @@ qg401ICCDE <- preprocessed2018[29] %>%
 qg401ICCRE <- preprocessed2018[29] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg401ICC <- t(data.matrix(data.frame(qg401ICCDE, qg401ICCRE[1:906,])))
-ICC(qg401ICC, alpha = 0.05) 
+psych::ICC(qg401ICC, alpha = 0.05) 
 ```
 
 
@@ -193,7 +193,7 @@ qg406ICCDE <- preprocessed2018[30] %>%
 qg406ICCRE <- preprocessed2018[30] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg406ICC <- t(data.matrix(data.frame(qg406ICCDE, qg406ICCRE[1:906,])))
-ICC(qg406ICC, alpha = 0.05) 
+psych::ICC(qg406ICC, alpha = 0.05) 
 ```
 
 
@@ -208,7 +208,7 @@ qg15ICCDE <- preprocessed2018[31] %>%
 qg15ICCRE <- preprocessed2018[31] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qg15ICC <- t(data.matrix(data.frame(qg15ICCDE, qg15ICCRE[1:906,])))
-ICC(qg15ICC, alpha = 0.05) 
+psych::ICC(qg15ICC, alpha = 0.05) 
 ```
 
 #### qn10025	对政府官员信任程度
@@ -222,7 +222,7 @@ qn10025ICCDE <- preprocessed2018[32] %>%
 qn10025ICCRE <- preprocessed2018[32] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qn10025ICC <- t(data.matrix(data.frame(qn10025ICCDE, qn10025ICCRE[1:906,])))
-ICC(qn10025ICC, alpha = 0.05) 
+psych::ICC(qn10025ICC, alpha = 0.05) 
 ```
 
 
@@ -237,7 +237,7 @@ qn6011ICCDE <- preprocessed2018[33] %>%
 qn6011ICCRE <- preprocessed2018[33] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qn6011ICC <- t(data.matrix(data.frame(qn6011ICCDE, qn6011ICCRE[1:906,])))
-ICC(qn6011ICC, alpha = 0.05) 
+psych::ICC(qn6011ICC, alpha = 0.05) 
 ```
 
 
@@ -252,7 +252,7 @@ qn6014ICCDE <- preprocessed2018[34] %>%
 qn6014ICCRE <- preprocessed2018[34] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qn6014ICC <- t(data.matrix(data.frame(qn6014ICCDE, qn6014ICCRE[1:906,])))
-ICC(qn6014ICC, alpha = 0.05) 
+psych::ICC(qn6014ICC, alpha = 0.05) 
 ```
 
 
@@ -267,7 +267,7 @@ qn6018ICCDE <- preprocessed2018[35] %>%
 qn6018ICCRE <- preprocessed2018[35] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qn6018ICC <- t(data.matrix(data.frame(qn6018ICCDE, qn6018ICCRE[1:906,])))
-ICC(qn6018ICC, alpha = 0.05) 
+psych::ICC(qn6018ICC, alpha = 0.05) 
 ```
 
 
@@ -282,7 +282,7 @@ qu802ICCDE <- preprocessed2018[36] %>%
 qu802ICCRE <- preprocessed2018[36] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qu802ICC <- t(data.matrix(data.frame(qu802ICCDE, qu802ICCRE[1:906,])))
-ICC(qu802ICC, alpha = 0.05) 
+psych::ICC(qu802ICC, alpha = 0.05) 
 ```
 
 
@@ -297,7 +297,7 @@ qu702ICCDE <- preprocessed2018[37] %>%
 qu702ICCRE <- preprocessed2018[37] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qu702ICC <- t(data.matrix(data.frame(qu702ICCDE, qu702ICCRE[1:906,])))
-ICC(qu702ICC, alpha = 0.05) 
+psych::ICC(qu702ICC, alpha = 0.05) 
 ```
 
 
@@ -312,7 +312,7 @@ w01ICCDE <- preprocessed2018[38] %>%
 w01ICCRE <- preprocessed2018[38] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 w01ICC <- t(data.matrix(data.frame(w01ICCDE, w01ICCRE[1:906,])))
-ICC(w01ICC, alpha = 0.05) 
+psych::ICC(w01ICC, alpha = 0.05) 
 ```
 
 
@@ -327,7 +327,7 @@ qn201ICCDE <- preprocessed2018[39] %>%
 qn201ICCRE <- preprocessed2018[39] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qn201ICC <- t(data.matrix(data.frame(qn201ICCDE, qn201ICCRE[1:906,])))
-ICC(qn201ICC, alpha = 0.05) 
+psych::ICC(qn201ICC, alpha = 0.05) 
 ```
 
 
@@ -342,5 +342,200 @@ qn202ICCDE <- preprocessed2018[40] %>%
 qn202ICCRE <- preprocessed2018[40] %>%
   filter(preprocessed2018$dispatch.Dispatch == 0)
 qn202ICC <- t(data.matrix(data.frame(qn202ICCDE, qn202ICCRE[1:906,])))
-ICC(qn202ICC, alpha = 0.05) 
+psych::ICC(qn202ICC, alpha = 0.05) 
+```
+
+
+
+
+### Categorical Variables
+
+
+Check if the categorical variables are significantly different across DE and RE with `chi-squared test`, test the strength of such association with `Cramer's V`
+
+
+Null hypothesis: There is no significant difference between DE and RE
+
+
+#### Results from Chi-Squared Tests and Cramer's V
+
+| Num | var | label | chi-sq's p value | cramer's v |
+| :--- | :---: | :-----: | :---: | ---: |
+| 3   | gendermale        | 性别               | 0.07858 | 0.02798016 |
+|     | genderfemale      | 性别 |             | | |
+| 5   | qg10Yes           | 是否提供公积金     | 8.977e-05 | 0.06157909 |
+|     | qg10No            | 是否提供公积金 |   | | |
+| 6   | qn4003Yes         | 工会成员           | 0.0002616 | 0.05752974 |
+|     | qn4003No          | 工会成员           |           |            |
+| 7   | qea0未婚          | 当前婚姻状态       | 0.5423 | 0.02738961 |
+| 8   | qea0在婚          | 当前婚姻状态       | | |
+| 9   | qea0同居          | 当前婚姻状态       | | | 
+| 10  | qea0离婚          | 当前婚姻状态       | | |
+|     | qea0丧偶          | 当前婚姻状态       | dropped | |
+| 11  | qp605公费治疗     | 您享有哪些医疗保险 | 0.001953 | 0.06780953 |
+| 12  | qp605城镇居民     | 您享有哪些医疗保险 | | |
+| 13  | qp605城镇治疗     | 您享有哪些医疗保险 | | |
+| 14  | qp605补充医疗     | 您享有哪些医疗保险 | | |
+| 15  | qp605新型农村     | 您享有哪些医疗保险 | | |
+|     | qp605一无所有     | 您享有哪些医疗保险 | dropped | |
+| 16  | qu201Yes          | 是否移动上网       | 0.001746 | 0.04955543 |
+|     | qu201No           | 是否移动上网       | dropped |
+| 17  | qu202Yes          | 是否电脑上网       | 2.774e-07 | 0.08059742 |
+|     | qu202No           | 是否电脑上网       | dropped | |
+| 18  | kwa2不喜爱学校    | 没升学的原因       | 0.002164 | 0.06372653|
+| 19  | kwa2学业成绩      | 没升学的原因       | | |
+| 20  | kwa2身体健康      | 没升学的原因       | | |
+| 21  | kwa2经济困难      | 没升学的原因       | | |
+|     | kwa2其他          | 没升学的原因       | dropped | |
+| 22  | qn203Yes          | 过去12个月是否在网上发表过与政治问题和国家大事相关的言论 | 0.4692 | 0.01308001 |
+|     | qn203No           | 过去12个月是否在网上发表过与政治问题和国家大事相关的言论 | dropped | |
+| 23  | qn4001Yes         | 是否是党员         | 0.0206 | 0.03795618 |
+|     | qn4001No          | 是否是党员         | dropped | |
+
+
+#### gendermale 	性别（男）
+
+```{r genderChiSq}
+genderMatrix <- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$gendermale == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$gendermale == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$gendermale == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$gendermale == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(genderMatrix)
+CramerV(genderMatrix)
+```
+
+
+#### qg10Yes 	是否提供公积金（是）
+
+```{r qg10YesChiSq}
+qg10YesMatrix <- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qg10Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qg10Yes == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qg10Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qg10Yes == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(qg10YesMatrix)
+CramerV(qg10YesMatrix)
+```
+
+
+#### qn4003Yes 	工会成员（是）
+
+```{r qn4003YesChiSq}
+qn4003YesMatrix <- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qn4003Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qn4003Yes == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qn4003Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qn4003Yes == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(qn4003YesMatrix)
+CramerV(qn4003YesMatrix)
+```
+
+
+#### qea0 	当前婚姻状态
+
+```{r qea0ChiSq}
+qea0Matrix <- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qea0同居 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qea0在婚 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qea0未婚 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qea0离婚 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qea0离婚 == 0 & preprocessed2018$qea0同居 == 0 & preprocessed2018$qea0未婚 == 0 & preprocessed2018$qea0在婚 == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qea0同居 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qea0在婚 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qea0未婚 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qea0离婚 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qea0离婚 == 0 & preprocessed2018$qea0同居 == 0 & preprocessed2018$qea0未婚 == 0 & preprocessed2018$qea0在婚 == 0))),
+                       ncol = 2)
+chisq.test(qea0Matrix)
+CramerV(qea0Matrix)
+```
+
+
+#### qp605 	您享有哪些医疗保险
+
+```{r qp605YesChiSq}
+qp605Matrix <- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qp605.公费治疗 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qp605.城镇居民 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qp605.城镇治疗 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qp605.新型农村 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qp605.补充医疗 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qp605.公费治疗 == 0 & preprocessed2018$qp605.城镇居民 == 0 & preprocessed2018$qp605.城镇治疗 == 0 & preprocessed2018$qp605.新型农村 == 0 & preprocessed2018$qp605.补充医疗 == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qp605.公费治疗 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qp605.城镇居民 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qp605.城镇治疗 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qp605.新型农村 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qp605.补充医疗 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qp605.公费治疗 == 0 & preprocessed2018$qp605.城镇居民 == 0 & preprocessed2018$qp605.城镇治疗 == 0 & preprocessed2018$qp605.新型农村 == 0 & preprocessed2018$qp605.补充医疗 == 0))),
+                       ncol = 2)
+chisq.test(qp605Matrix)
+CramerV(qp605Matrix)
+```
+
+#### qu201 	是否移动上网
+
+```{r qu201YesChiSq}
+qu201YesMatrix <- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qu201Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qu201Yes == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qu201Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qu201Yes == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(qu201YesMatrix)
+CramerV(qu201YesMatrix)
+```
+
+#### qu202 	是否电脑上网
+
+```{r qu202YesChiSq}
+qu202YesMatrix <- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qu202Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qu202Yes == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qu202Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qu202Yes == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(qu202YesMatrix)
+CramerV(qu202YesMatrix)
+```
+
+
+#### kwa2 	没升学的原因
+
+```{r kwa2ChiSq}
+kwa2Matrix <- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$kwa2_b_1学业成绩 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$kwa2_b_1身体健康 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$kwa2_b_1经济困难 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$kwa2_b_1不喜欢学校 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$kwa2_b_1学业成绩 == 0 & preprocessed2018$kwa2_b_1身体健康 == 0 & preprocessed2018$kwa2_b_1经济困难 == 0 & preprocessed2018$kwa2_b_1不喜欢学校 == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$kwa2_b_1学业成绩 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$kwa2_b_1身体健康 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$kwa2_b_1经济困难 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$kwa2_b_1不喜欢学校 == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$kwa2_b_1学业成绩 == 0 & preprocessed2018$kwa2_b_1身体健康 == 0 & preprocessed2018$kwa2_b_1经济困难 == 0 & preprocessed2018$kwa2_b_1不喜欢学校 == 0))),
+                       ncol = 2)
+chisq.test(kwa2Matrix)
+CramerV(kwa2Matrix)
+```
+
+
+#### qn203 	过去12个月是否在网上发表过与政治问题和国家大事相关的言论
+
+```{r qn203YesChiSq}
+qn203YesMatrix <- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qn203Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qn203Yes == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qn203Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qn203Yes == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(qn203YesMatrix)
+CramerV(qn203YesMatrix)
+```
+
+
+#### qn4001 	是否是党员
+
+```{r qn4001YesChiSq}
+qn4001YesMatrix <- matrix(c(length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qn4001Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 1 & preprocessed2018$qn4001Yes == 0)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qn4001Yes == 1)),
+                         length(which(preprocessed2018$dispatch.Dispatch == 0 & preprocessed2018$qn4001Yes == 0))),
+                       ncol = 2, byrow = TRUE)
+chisq.test(qn4001YesMatrix)
+CramerV(qn4001YesMatrix)
 ```
