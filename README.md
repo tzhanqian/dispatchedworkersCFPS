@@ -97,10 +97,10 @@ Project length: 2 months
 
 *Nov. 18 to 22*
 
-- [ ] Apply statistics approaches to check univariate hypothesis:
+- [x] Apply statistics approaches to check univariate hypothesis:
   - Check if the continuous variable is different across DE and RE significantly with `ANOVA` and test the strength of such association with `intra-class correlation`
   - Check if the categorical variable is significantly different across DE and RE with `chi-squared test`, test the strength of such association with `Cramer's V`
-- [ ] Synthesize a codebook of relevant variables
-- [ ] Finish data preprocessing for classification
+- [x] Synthesize a codebook of relevant variables
+- [x] Finish data preprocessing for classification
 - [ ] Illustrate working knowledge of `Logistic Regression`, `Lasso`, and `Ridge` with implementation in R
 - [ ] Apply L`Logistic Regression`, `Lasso Regression` and `Ridge Regression`
