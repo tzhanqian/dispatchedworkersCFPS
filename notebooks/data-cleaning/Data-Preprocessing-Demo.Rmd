@@ -1,0 +1,108 @@
+---
+title: "Data Preprocessing Demo"
+author: "Kunyu He, CAPP'20"
+date: "11/23/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(mice)
+
+options(scipen=999)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.width=8, fig.height=4.5, fig.align='center')
+```
+
+# Preparation
+
+## Load Data
+
+```{r}
+data("mtcars")
+```
+
+## Add Missing and Outliers
+
+```{r}
+set.seed(123)
+at_pattern = sample(1:32, 4, replace=F)
+mtcars$mpg[sample(1:32, 8, replace=F)] <- NA
+mtcars$hp[at_pattern] <- NA
+mtcars$mpg[at_pattern] <- NA
+
+mtcars$cyl[sample(1:32, 5, replace=F)] <- -99
+mtcars$gear[sample(1:32, 6, replace=F)] <- runif(6, 3, 8)
+```
+
+```{r}
+head(mtcars)
+```
+
+# Deal with Missing Values
+
+```{r}
+apply(mtcars, 2,
+      function(col) sum(is.na(col))) / nrow(mtcars) * 100
+```
+
+```{r}
+mtcars[!(mtcars$gear > quantile(mtcars$gear, 0.99)),]
+```
+
+
+```{r, message=FALSE}
+a <- mice(mtcars, m=5, maxit=50, method='pmm', seed=123, printFlag=F)
+```
+
+```{r}
+mtcars$mpg[is.na(mtcars$mpg)] <- apply(a$imp$mpg, 1, median)
+mtcars$hp[is.na(mtcars$hp)] <- apply(a$imp$hp, 1, mean)
+```
+
+```{r}
+apply(mtcars, 2,
+      function(col) sum(is.na(col)))
+```
+
+# Deal with Outliers
+
+# One-hot-encode Categorical Variables
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
