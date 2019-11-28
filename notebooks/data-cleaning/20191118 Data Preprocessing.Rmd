@@ -8,7 +8,7 @@ output: html_document
 
 ### Load Packages
 
-```{r load-packages}
+```{r load-packages message = F}
 library(ggplot2)
 library(dplyr)
 library(statsr)

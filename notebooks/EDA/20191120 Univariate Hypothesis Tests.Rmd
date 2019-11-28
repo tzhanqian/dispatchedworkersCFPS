@@ -11,7 +11,7 @@ output: html_document
 
 ### Load Packages
 
-```{r load-packages}
+```{r load-packages, message=FALSE}
 library(ggplot2)
 library(dplyr)
 library(statsr)

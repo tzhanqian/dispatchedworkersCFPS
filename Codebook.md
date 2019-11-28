@@ -3,14 +3,14 @@
 | Num  |   var  | label | CFPS original var |  type of orginal var | mean after standardization (numeric)/percentage (categorical) | mean before standardization | median after standardization | median before standardization | range after standardization | range before standardization | IQR after standardization | IQR before standardization | count | status |
 | :--- | :----: | :----: | :---: | :--: | :----: | :---: | ----: | ---- | ---- | :--: | ---- | :--- | ---- | ---- |
 | 1 | X | 个人编码 |  | Numeric |  |  |  |  | [1, 4124] |  |  |  | 4124 |  |
-| 1    |  pid   | 个人id  | pid | Numeric | | | | | | | | | 4124 ||
-| 2    |  gendermale | 性别（男） | gender | Nominal |55.82%||||[0, 1]||||4124||
+| 2    |  pid   | 个人id  | pid | Numeric | | | | | | | | | 4124 ||
+| 3    |  gendermale | 性别（男） | gender | Nominal |55.82%||||[0, 1]||||4124||
 |      |   genderfemale    | 性别（女）                                                  | gender                                            | Nominal |44.18%||||[0, 1]||||4124|Dropped|
-| 3   | dispatch.Dispatch | 雇佣方法 (劳务派遣) |  | Nominal | 21.97% |  |||[0, 1]||||4124||
+| 4   | dispatch.Dispatch | 雇佣方法 (劳务派遣) |  | Nominal | 21.97% |  |||[0, 1]||||4124||
 |    | dispatch.Contract | 雇佣方法 （常规合同） |  | Nominal | 78.03% |  | | | [0, 1] |  |  |  | 4124 | Dropped |
-| 4   |      qg10Yes      | 是否提供公积金（是）                                      | qg10                                  | Nominal |44.96%||||[0, 1]||||4124||
+| 5   |      qg10Yes      | 是否提供公积金（是）                                      | qg10                                  | Nominal |44.96%||||[0, 1]||||4124||
 |      |      qg10No       | 是否提供公积金（否）                                        | qg10                                    | Nominal |55.04%||||[0, 1]||||4124|Dropped|
-| 5   |     qn4003Yes     | 工会成员（是）                                              | qn4003                                        | Nominal |24.3%||||[0, 1]||||4124||
+| 6   |     qn4003Yes     | 工会成员（是）                                              | qn4003                                        | Nominal |24.3%||||[0, 1]||||4124||
 |      |     qn4003No      | 工会成员（否）                                              | qn4003                                        | Nominal |75.7%||||[0, 1]||||4124|Dropped|
 | 7    |    qea0同居 | 当前婚姻状态                                             | qea0                                         | Nominal |0.34%||||[0, 1]||||4124||
 | 8    |     qea0在婚      | 当前婚姻状态                                             | qea0                                         | Nominal |75.44%||||[0, 1]||||4124||
