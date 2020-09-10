@@ -30,13 +30,10 @@ Citation: The data are from China Family Panel Studies (CFPS), funded by 985 Pro
 
 ## 3. Project Timeline
 
-- Prepared for: Hanqian Zhang, 张含谦
-- Prepared by: Kunyu He, 贺鲲羽
+Hanqian Zhang (tzhanqia@umich.edu/tzhanqian@gmail.com)
+Kunyu He (kunyu.he.uchicago@gmail.com)
 
 October 27th, 2019
-
-Project length: 2 months
-
 
 
 ### Week 1
@@ -49,9 +46,6 @@ Project length: 2 months
 
 
 
-### Week 2
-
-*Nov. 4 to 8*
 
 - [x] Decided on using CFPS datasets for the study
 
@@ -66,10 +60,6 @@ Project length: 2 months
   > Output: 20191102-Preliminary-Prep.Rmd, [link](https://github.com/tzhanqian/dispatchedworkersCFPS/blob/master/notebooks/EDA/20191102%20Preliminary%20Prep.Rmd)
 
 
-
-### Week 3
-
-*Nov. 11 to 15*
 
 - [x] Started to work on data cleaning, produced first version of cleaned dataset
 
@@ -93,9 +83,6 @@ Project length: 2 months
 
 
 
-### Week 4
-
-*Nov. 18 to 22*
 
 - [x] Apply statistics approaches to check univariate hypothesis:
   - Check if the continuous variable is different across DE and RE significantly with `ANOVA` and test the strength of such association with `intra-class correlation`
@@ -105,29 +92,20 @@ Project length: 2 months
 
 
 
-### Week 5
+- [x] Illustrate working knowledge of `Ridge`, `Lasso` , and `Logistic Regression` in contrast with least squares
+- [x] Live demo with implementation in R
 
-*Dec. 16 to 20*
-
-- [ ] Illustrate working knowledge of `Ridge`, `Lasso` , and `Logistic Regression` in contrast with least squares
-- [ ] Live demo with implementation in R
-
-- [ ] Explain machine learning workflow, highlighting:
+- [x] Explain machine learning workflow, highlighting:
   - Train (validation) test split and cross-validation
   - Data leakage issue and how to avoid it
   - Model evaluation and different evaluation metrics
-- [ ] Apply `Logistic Regression` on preprocessed data
+- [x] Apply `Logistic Regression` on preprocessed data
 
 
-
-### Week 6, 7
-
-Dec. 23 - 27, Dec. 30 - Jan. 3
-
-- [ ] Implement a machine learning pipeline, with the following components:
-  - [ ] Train test split
-  - [ ] Data cleaning
-  - [ ] Feature engineering
-  - [ ] Preprocessing
-  - [ ] Modeling
+- [x] Implement a machine learning pipeline, with the following components:
+  - [x] Train test split
+  - [x] Data cleaning
+  - [x] Feature engineering
+  - [x] Preprocessing
+  - [x] Modeling
 
